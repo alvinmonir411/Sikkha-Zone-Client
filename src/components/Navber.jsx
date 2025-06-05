@@ -139,7 +139,7 @@ const Navber = () => {
                         className={({ isActive }) =>
                           isActive ? "text-blue-500 underline" : ""
                         }
-                        to="/MyArticle"
+                        to={`/MyArticle/author/${user.uid}`}
                       >
                         My Article
                       </NavLink>
