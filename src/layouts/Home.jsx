@@ -1,6 +1,7 @@
 import React from "react";
 import HeroSlider from "../components/HeroSlider";
 import FeatureSection from "../components/FeatureSection";
+import TopContributors from "../components/TopContributors";
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
       </h1>
       <HeroSlider />
       <FeatureSection />
+      <TopContributors />
     </div>
   );
 };

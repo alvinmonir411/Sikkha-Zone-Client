@@ -9,6 +9,7 @@ import PrivateRoute from "../Privetrout/PrivateRoute ";
 
 import Home from "../layouts/Home";
 import FilterArtilce from "../components/FilterArtilce";
+import ArticlesDetails from "../components/ArticlesDetails";
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +38,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <FilterArtilce />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/ArticlesDetails/:id",
+        element: (
+          <PrivateRoute>
+            <ArticlesDetails />
           </PrivateRoute>
         ),
       },

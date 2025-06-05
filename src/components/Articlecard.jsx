@@ -1,43 +1,49 @@
 import React from "react";
+import { NavLink } from "react-router";
 
 const Articlecard = ({ article }) => {
   const {
+    _id,
     title,
     content,
     category,
-    author,
+    author_name,
     date,
     image,
     tags,
-    author_id,
-    author_name,
-    author_email,
     author_photoURL,
   } = article;
+
   return (
     <div>
-      {" "}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white rounded-2xl shadow-lg overflow-hidden p-4 md:p-6 mb-6 transition hover:shadow-2xl duration-300">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white rounded-2xl shadow-lg overflow-hidden p-6 mb-6 transition-shadow hover:shadow-2xl hover:scale-[1.02] duration-300">
         {/* Image */}
-        <div className="w-full h-64 md:h-auto">
+        <div className="w-full h-64 md:h-auto overflow-hidden rounded-xl">
           <img
             src={image}
             alt={title}
-            className="w-full h-[400px] object-cover rounded-xl"
+            className="w-full h-[400px] object-cover rounded-xl transition-transform duration-300 hover:scale-105"
           />
         </div>
 
         {/* Content */}
         <div className="flex flex-col justify-between">
-          {/* Title and Category */}
           <div>
-            <span className="text-sm text-indigo-600 font-medium">
+            <span className="inline-block bg-indigo-100 text-indigo-700 text-xs font-semibold px-3 py-1 rounded-full">
               {category}
             </span>
-            <h2 className="text-2xl font-semibold mt-2 text-gray-800">
+            <h2 className="text-2xl font-semibold mt-2 text-gray-900 leading-snug">
               {title}
             </h2>
-            <p className="text-gray-600 mt-3 line-clamp-4">{content}</p>
+            <p className="text-gray-700 mt-3 line-clamp-4 leading-relaxed">
+              {content}
+            </p>
+            <NavLink
+              to={`/ArticlesDetails/${_id}`}
+              className="inline-block mt-4 text-blue-600 font-medium hover:text-blue-800 transition"
+            >
+              Read More →
+            </NavLink>
           </div>
 
           {/* Footer: Author & Tags */}
