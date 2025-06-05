@@ -2,6 +2,7 @@ import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
   updateProfile,
@@ -15,7 +16,7 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  console.log(user?.photoURL, user?.displayName);
+
   const [loading, setLoading] = useState(true);
 
   // google sign in function can be added here
@@ -29,7 +30,13 @@ const AuthProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
   const Logout = () => {
+    setLoading(true);
     return signOut(auth);
+  };
+  // loginuserwith email and password
+  const LoginUser = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
   };
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -55,6 +62,7 @@ const AuthProvider = ({ children }) => {
     creatUser,
     Logout,
     signingoogle,
+    LoginUser,
   };
 
   return (

@@ -7,11 +7,19 @@ import Login from "../pages/Login";
 import Ragister from "../pages/Ragister";
 import PrivateRoute from "../Privetrout/PrivateRoute ";
 
+import Home from "../layouts/Home";
+import FilterArtilce from "../components/FilterArtilce";
+
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
     children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+
       {
         path: "/AllArticles",
         element: <AllArticles />,
@@ -21,6 +29,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <PostArticle />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/category/:categoryName",
+        element: (
+          <PrivateRoute>
+            <FilterArtilce />
           </PrivateRoute>
         ),
       },

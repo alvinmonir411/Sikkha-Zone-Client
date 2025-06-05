@@ -1,9 +1,47 @@
 import Lottie from "lottie-react";
-import React from "react";
+import React, { use } from "react";
 import { FaGoogle } from "react-icons/fa6";
 import lottianimation from "../assets/lottifiles.json";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
+import { AuthContext } from "../context/Authcontext";
+import { toast } from "react-toastify";
 const Login = () => {
+  const Navigate = useNavigate();
+
+  const { LoginUser, setUser, signingoogle } = use(AuthContext);
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const user = { email, password };
+    console.log("Login button clicked", user);
+    LoginUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+        console.log("User logged in successfully:", user);
+        toast.success("Login successful!");
+
+        Navigate("/");
+      })
+      .catch((error) => {
+        console.error("Error logging in with Google:", error);
+      });
+  };
+
+  const handleGoogleLogin = () => {
+    signingoogle()
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+        toast.success("You have successfully logged in with Google!");
+        Navigate("/");
+      })
+      .catch((error) => {
+        console.error("Error logging in with Google:", error);
+      });
+  };
   return (
     <div>
       <div className="hero bg-base-200 min-h-screen">
@@ -26,24 +64,36 @@ const Login = () => {
           </div>
           <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
             <div className="card-body">
-              <fieldset className="fieldset">
+              <form onSubmit={handleLogin} className="fieldset">
                 <label className="label">Email</label>
-                <input type="email" className="input" placeholder="Email" />
+                <input
+                  type="email"
+                  name="email"
+                  className="input"
+                  placeholder="Email"
+                />
                 <label className="label">Password</label>
                 <input
                   type="password"
+                  name="password"
                   className="input"
                   placeholder="Password"
                 />
                 <div>
                   <a className="link link-hover">Forgot password?</a>
                 </div>
-                <button className="btn bg-white text-black border-[#e5e5e5]">
-                  <FaGoogle className="text-amber-400 " />
-                  Login with Google
+
+                <button type="submit" className="btn btn-neutral mt-4">
+                  Login
                 </button>
-                <button className="btn btn-neutral mt-4">Login</button>
-              </fieldset>
+              </form>
+              <button
+                onClick={handleGoogleLogin}
+                className="btn bg-white text-black border-[#e5e5e5]"
+              >
+                <FaGoogle className="text-amber-400 " />
+                Login with Google
+              </button>
             </div>
           </div>
         </div>
