@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Categores from "./Categores";
+import { NavLink } from "react-router";
 
 const FeatureSection = () => {
   const [data, setData] = useState([]);
@@ -33,6 +34,12 @@ const FeatureSection = () => {
 
               <p className="text-gray-600 text-sm mt-2 line-clamp-3">
                 {item.content}
+                <NavLink
+                  to={`/Articles/id/${item._id}`}
+                  className="inline-block mt-4 text-blue-600 font-medium hover:text-blue-800 transition"
+                >
+                  Read More →
+                </NavLink>
               </p>
 
               <div className="flex flex-wrap gap-2 mt-4">

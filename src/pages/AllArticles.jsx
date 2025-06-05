@@ -19,7 +19,7 @@ const AllArticles = () => {
       ) : (
         <ul>
           {data.map((article) => (
-            <Articlecard key={article.id} article={article} />
+            <Articlecard key={article._id} article={article} />
           ))}
         </ul>
       )}

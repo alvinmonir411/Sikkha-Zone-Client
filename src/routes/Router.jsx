@@ -42,7 +42,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/ArticlesDetails/:id",
+        path: "/Articles/id/:_id",
         element: (
           <PrivateRoute>
             <ArticlesDetails />

@@ -39,7 +39,7 @@ const Articlecard = ({ article }) => {
               {content}
             </p>
             <NavLink
-              to={`/ArticlesDetails/${_id}`}
+              to={`/Articles/id/${_id}`}
               className="inline-block mt-4 text-blue-600 font-medium hover:text-blue-800 transition"
             >
               Read More →
