@@ -64,9 +64,9 @@ const Navber = () => {
             </li>{" "}
           </ul>
         </div>
-        <p className="btn btn-ghost text-xl">
+        <NavLink to="/" className="btn btn-ghost text-xl">
           Shikkha<span className="text-blue-500 font-semibold">Zone</span>
-        </p>
+        </NavLink>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">

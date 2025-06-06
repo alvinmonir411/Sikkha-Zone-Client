@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link, NavLink } from "react-router";
 import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
+import axios from "axios";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const MyArticles = () => {
   const { author_id } = useParams();
@@ -16,7 +19,42 @@ const MyArticles = () => {
       });
   }, [author_id]);
 
-  const handleDelete = (id) => {};
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://localhost:3000/Articles/id/${id}`)
+          .then((res) => {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your article has been deleted.",
+              icon: "success",
+            });
+
+            // Frontend state থেকে article remove করো
+            setMyData((prevData) =>
+              prevData.filter((article) => article._id !== id)
+            );
+          })
+          .catch((error) => {
+            console.error("There was an error deleting the article!", error);
+            Swal.fire({
+              title: "Error!",
+              text: "Failed to delete the article.",
+              icon: "error",
+            });
+          });
+      }
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">

@@ -53,7 +53,7 @@ const Login = () => {
               Not have account?
               <NavLink
                 to="/ragister"
-                className="focus:underline hover:underline"
+                className="focus:underline hover:underline text-blue-400"
               >
                 Register here
               </NavLink>
