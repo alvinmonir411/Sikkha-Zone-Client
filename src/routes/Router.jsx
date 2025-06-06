@@ -11,11 +11,13 @@ import FilterArtilce from "../components/FilterArtilce";
 import ArticlesDetails from "../components/ArticlesDetails";
 import MyArticles from "./../pages/MyArticles";
 import UpdateArticle from "../components/UpdateArticle";
+import Eror from "../Eroor/Eror";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement: <Eror />,
     children: [
       {
         index: true,

@@ -11,7 +11,7 @@ const Categores = () => {
   ];
   return (
     <div className="flex justify-center gap-5 items-center my-10">
-      <ul className="flex gap-5 rounded-2xl">
+      <ul className="md:flex gap-5 rounded-2xl">
         {categories.map((category) => (
           <NavLink to={`/category/${category.name}`} key={category.id}>
             <button className="btn"> {category.name}</button>

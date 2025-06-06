@@ -39,7 +39,6 @@ const MyArticles = () => {
               icon: "success",
             });
 
-            // Frontend state থেকে article remove করো
             setMyData((prevData) =>
               prevData.filter((article) => article._id !== id)
             );

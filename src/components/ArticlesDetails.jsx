@@ -1,5 +1,5 @@
 import { NavLink, useParams } from "react-router";
-import { use, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AiFillLike } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { FaComment } from "react-icons/fa";
@@ -7,57 +7,81 @@ import axios from "axios";
 import { AuthContext } from "../context/Authcontext";
 
 const ArticlesDetails = () => {
-  const { user } = use(AuthContext);
-  console.log(user);
+  const { user } = useContext(AuthContext);
   const { _id } = useParams();
   const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [like, setlike] = useState(false);
-  const [comment, setComment] = useState([]);
-
+  const [like, setLike] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
+  const [comments, setComments] = useState([]);
   const [commentOpen, setCommentOpen] = useState(false);
-  const hanldeComment = () => {
-    console.log("comment clicked");
+
+  const handleCommentToggle = () => {
     setCommentOpen(!commentOpen);
   };
 
-  // handle comment form submission
-  const hanldeCommentform = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const commentText = {
-      comment: form.comment.value.trim(),
-      articleId: _id,
-      author_name: author_name,
-      photoURLL: user.photoURL,
-    };
-    // sending comment to the server
+  // Handle like
+  const handleLike = () => {
     axios
-      .post(`http://localhost:3000/Articles/id/${_id}/comment`, commentText)
-      .then(() => {
-        toast.success("Comment added successfully!");
-        setComment(commentText);
-        form.reset();
+      .post(`http://localhost:3000/Articles/id/${_id}/like`, {
+        userEmail: user.email,
       })
-      .catch((error) => {
-        toast.error("faild to add comment  ");
+      .then((res) => {
+        setLike(true);
+        setLikeCount((prev) => prev + 1);
+      })
+      .catch((err) => {
+        setLike(false);
+        toast.error(err.response?.data?.message || "Already liked or error");
       });
   };
 
+  // Fetch article details
   useEffect(() => {
     fetch(`http://localhost:3000/Articles/id/${_id}`)
       .then((res) => res.json())
       .then((data) => {
         setArticle(data);
+        setComments(data.comment || []);
+        setLikeCount(data.likeCount || 0);
+        if (data.likedBy?.includes(user.email)) {
+          setLike(true);
+        } else {
+          setLike(false);
+        }
         setLoading(false);
       })
       .catch(() => setLoading(false));
-  }, [_id]);
+  }, [_id, user.email]);
 
-  if (!article) return <p className="text-center py-10">Loading...</p>;
-  if (loading)
+  // Handle comment submit
+  const handleCommentForm = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const newComment = {
+      comment: form.comment.value.trim(),
+      articleId: _id,
+      author_name: user.displayName,
+      photoURL: user.photoURL,
+    };
+
+    axios
+      .post(`http://localhost:3000/Articles/id/${_id}/comment`, newComment)
+      .then(() => {
+        toast.success("Comment added successfully!");
+        setComments((prev) => [...prev, newComment]);
+        form.reset();
+      })
+      .catch(() => {
+        toast.error("Failed to add comment.");
+      });
+  };
+
+  if (loading || !article)
     return (
-      <div className="mx-auto border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600" />
+      <div className="text-center py-10">
+        <div className="mx-auto border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600" />
+      </div>
     );
 
   const {
@@ -74,17 +98,14 @@ const ArticlesDetails = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
-      {/* Article Image */}
       <img
         src={image}
         alt={title}
         className="w-full h-64 object-cover rounded-2xl shadow-lg"
       />
 
-      {/* Title */}
       <h1 className="text-4xl font-bold mt-6 text-gray-900">{title}</h1>
 
-      {/* Author Info */}
       <div className="flex items-center gap-4 mt-4">
         <img
           src={author_photoURL}
@@ -93,25 +114,22 @@ const ArticlesDetails = () => {
         />
         <div className="flex justify-between w-full">
           <div>
-            {" "}
             <p className="font-semibold text-gray-700">{author_name}</p>
             <p className="text-sm text-gray-500">{author_email}</p>
           </div>
-          <div className="flex gap-5 items-center">
+          <div className="md:flex gap-5 items-center">
             <button
-              onClick={() => {
-                setlike(!like);
-              }}
-              className={`flex items-center gap-1 ${
+              onClick={handleLike}
+              className={`flex cursor-pointer items-center gap-1 ${
                 like ? "text-blue-500" : ""
               }`}
             >
               <AiFillLike />
-              like
+              like {likeCount}
             </button>
             <button
-              onClick={() => hanldeComment()}
-              className="flex items-center gap-1"
+              onClick={handleCommentToggle}
+              className="flex cursor-pointer items-center gap-1"
             >
               <FaComment />
               Comment
@@ -120,7 +138,6 @@ const ArticlesDetails = () => {
         </div>
       </div>
 
-      {/* Metadata */}
       <div className="flex flex-wrap gap-4 mt-4 text-sm text-gray-600">
         <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-md">
           📅 {date}
@@ -138,62 +155,63 @@ const ArticlesDetails = () => {
         ))}
       </div>
 
-      {/* Content */}
       <div className="mt-8 text-lg leading-relaxed text-gray-800">
         {content}
       </div>
 
       <NavLink className="btn bg-blue-300 w-full mt-10" to="/AllArticles">
-        View More Article
+        View More Articles
       </NavLink>
 
-      <form
-        onSubmit={hanldeCommentform}
-        className={` "mt-10" ${commentOpen ? "block" : "hidden"} `}
-      >
-        <label className="block mb-2 text-lg font-semibold text-gray-700">
-          Leave a Comment
-        </label>
-        <textarea
-          name="comment"
-          className="border-2 w-full"
-          cols="4"
-          id=""
-        ></textarea>
-        <input type="submit" className="btn" value="Submit" />
-      </form>
-      <div className="mt-4">
-        <h2 className="text-xl font-semibold text-gray-800">Comments</h2>
-        <div>
-          <h2>Comments</h2>
-          {/* Comments List */}
-          {article.comment && article.comment.length > 0 ? (
-            <div className="space-y-6">
-              {article.comment.map((c, index) => (
-                <div
-                  key={index}
-                  className="flex gap-4 bg-gray-50 rounded-lg p-4 shadow-sm border border-gray-200"
-                >
-                  <img
-                    src={c.photoURL || "default-profile.png"}
-                    alt={`${c.author_name}'s profile`}
-                    className="w-14 h-14 rounded-full object-cover border-2 border-blue-500"
-                  />
-                  <div>
-                    <p className="font-semibold text-gray-900">
-                      {c.author_name}
-                    </p>
-                    <p className="mt-1 text-gray-700">{c.comment}</p>
-                  </div>
+      {/* Comment Form */}
+      {commentOpen && (
+        <form onSubmit={handleCommentForm} className="mt-10">
+          <label className="block mb-2 text-lg font-semibold text-gray-700">
+            Leave a Comment
+          </label>
+          <textarea
+            name="comment"
+            className="border-2 w-full rounded p-2"
+            rows="4"
+            required
+          ></textarea>
+          <input
+            type="submit"
+            className="btn mt-2 bg-blue-500 text-white px-4 py-2 rounded"
+            value="Submit"
+          />
+        </form>
+      )}
+
+      {/* Comments */}
+      <div className="mt-8">
+        <h2 className="text-xl font-semibold text-gray-800">
+          {comments.length} Comment{comments.length !== 1 && "s"}
+        </h2>
+        {comments.length > 0 ? (
+          <div className="space-y-6 mt-4">
+            {comments.map((c, index) => (
+              <div
+                key={index}
+                className="flex gap-4 bg-gray-50 rounded-lg p-4 shadow-sm border border-gray-200"
+              >
+                <img
+                  src={c.photoURL || "default-profile.png"}
+                  alt={`${c.author_name}'s profile`}
+                  className="w-14 h-14 rounded-full object-cover border-2 border-blue-500"
+                />
+                <div>
+                  <p className="font-semibold text-gray-900">{c.author_name}</p>
+                  <p className="mt-1 text-gray-700">{c.comment}</p>
                 </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-gray-500 italic">
-              No comments yet. Be the first to comment!
-            </p>
-          )}
-        </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-500 italic mt-2">
+            No comments yet. Be the first to comment!
+          </p>
+        )}
       </div>
     </div>
   );

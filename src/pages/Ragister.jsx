@@ -11,6 +11,17 @@ const Ragister = () => {
     use(AuthContext);
   const navigate = useNavigate();
 
+  // for passwod validation
+  const handlePasswordValidation = (e) => {
+    const value = e.target.value;
+    const isValid = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(value);
+    e.target.setCustomValidity(
+      isValid
+        ? ""
+        : "Password must have uppercase, lowercase and be at least 6 characters"
+    );
+  };
+
   const googlesignin = () => {
     console.log("btn clicked");
 
@@ -139,6 +150,7 @@ const Ragister = () => {
               <input
                 type="password"
                 name="password"
+                onInput={handlePasswordValidation}
                 placeholder="*****"
                 className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600"
               />

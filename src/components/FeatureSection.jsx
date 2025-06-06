@@ -59,7 +59,7 @@ const FeatureSection = () => {
                 <img
                   src={item.author_photo}
                   alt={item.author_name}
-                  className="w-10 h-10 rounded-full object-cover"
+                  className="w-10 border border-blue-200 h-10 rounded-full object-cover"
                 />
                 <span className="text-sm text-gray-700 font-medium">
                   {item.author_name}
