@@ -11,6 +11,7 @@ import React, { createContext, useEffect, useState } from "react";
 import { auth } from "../Firebaseauth/firebase.init";
 
 import { toast } from "react-toastify";
+import axios from "axios";
 
 export const AuthContext = createContext();
 
@@ -31,6 +32,7 @@ const AuthProvider = ({ children }) => {
   };
   const Logout = () => {
     setLoading(true);
+    localStorage.removeItem("token");
     return signOut(auth);
   };
   // loginuserwith email and password
@@ -43,7 +45,18 @@ const AuthProvider = ({ children }) => {
       if (currentUser) {
         // User is signed in
         setUser(currentUser);
-        console.log("User logged in:", currentUser);
+        "User logged in:", currentUser;
+        if (currentUser?.email) {
+          axios
+            .post("http://localhost:3000/jwt", {
+              email: currentUser?.email,
+            })
+            .then((res) => {
+              res.data;
+
+              localStorage.setItem("token", res.data.token);
+            });
+        }
       } else {
         // User is signed out
         setUser(null);

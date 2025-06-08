@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Articlecard from "../components/Articlecard";
+import axiosinstance from "../Hooks/useaxiossecure";
 
 const AllArticles = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    fetch("http://localhost:3000/Articles")
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        setLoading(false);
-      });
+    axiosinstance.get("Articles").then((data) => {
+      data.data;
+      setData(data.data);
+      setLoading(false);
+    });
   }, []);
   return (
     <div>

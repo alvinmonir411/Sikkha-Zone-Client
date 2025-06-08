@@ -23,7 +23,7 @@ const Ragister = () => {
   };
 
   const googlesignin = () => {
-    console.log("btn clicked");
+    ("btn clicked");
 
     signingoogle()
       .then(() => {
@@ -73,7 +73,7 @@ const Ragister = () => {
         alert(errorMessage);
       });
 
-    console.log("Registration Data:", name, email, password, photoUrl);
+    "Registration Data:", name, email, password, photoUrl;
   };
 
   return (

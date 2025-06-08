@@ -15,12 +15,12 @@ const Login = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
     const user = { email, password };
-    console.log("Login button clicked", user);
+    "Login button clicked", user;
     LoginUser(email, password)
       .then((result) => {
         const user = result.user;
         setUser(user);
-        console.log("User logged in successfully:", user);
+        "User logged in successfully:", user;
         toast.success("Login successful!");
 
         Navigate("/");

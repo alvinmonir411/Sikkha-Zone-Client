@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Categores from "./Categores";
 import { NavLink } from "react-router";
+import axiosinstance from "../Hooks/useaxiossecure";
 
 const FeatureSection = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/FeatureArticles")
-      .then((response) => response.json())
-      .then((data) => setData(data));
+    axiosinstance.get("FeatureArticles").then((res) => setData(res.data));
   }, []);
 
   return (

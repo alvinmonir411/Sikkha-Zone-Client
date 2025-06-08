@@ -1,8 +1,9 @@
 import React, { use, useState } from "react";
 import { AuthContext } from "../context/Authcontext";
-import axios from "axios";
+
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router";
+import axiosinstance from "../Hooks/useaxiossecure";
 
 const UpdateArticle = () => {
   const { id } = useParams();
@@ -10,10 +11,9 @@ const UpdateArticle = () => {
   const { user } = use(AuthContext);
   const [data, setData] = useState([]);
   useState(() => {
-    fetch(`http://localhost:3000/Articles/id/${id}`)
-      .then((res) => res.json())
+    axiosinstance(`Articles/id/${id}`)
       .then((data) => {
-        setData(data);
+        setData(data.data);
       })
       .catch((error) => {
         console.error("Error fetching article:", error);
@@ -46,8 +46,8 @@ const UpdateArticle = () => {
       author_photoURL: user?.photoURL || "",
     };
 
-    axios
-      .put(`http://localhost:3000/Articles/${id}`, updatedArticle)
+    axiosinstance
+      .put(`Articles/${id}`, updatedArticle)
       .then((res) => {
         toast.success("Article updated successfully!");
         navigate("/");

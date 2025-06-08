@@ -3,8 +3,8 @@ import { useContext, useEffect, useState } from "react";
 import { AiFillLike } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { FaComment } from "react-icons/fa";
-import axios from "axios";
-import { AuthContext } from "../context/Authcontext";
+import axiosinstance from "../Hooks/useaxiossecure";
+import { AuthContext } from "./../context/AuthContext";
 
 const ArticlesDetails = () => {
   const { user } = useContext(AuthContext);
@@ -20,42 +20,44 @@ const ArticlesDetails = () => {
     setCommentOpen(!commentOpen);
   };
 
-  // Handle like
-  const handleLike = () => {
-    axios
-      .post(`http://localhost:3000/Articles/id/${_id}/like`, {
+  // Handle Like
+  const handleLike = async () => {
+    try {
+      await axiosinstance.post(`/Articles/id/${_id}/like`, {
         userEmail: user.email,
-      })
-      .then((res) => {
-        setLike(true);
-        setLikeCount((prev) => prev + 1);
-      })
-      .catch((err) => {
-        setLike(false);
-        toast.error(err.response?.data?.message || "Already liked or error");
       });
+      setLike(true);
+      setLikeCount((prev) => prev + 1);
+    } catch (err) {
+      setLike(false);
+      toast.error(
+        err.response?.data?.message || "Already liked or error occurred"
+      );
+    }
   };
 
-  // Fetch article details
+  // Fetch article
   useEffect(() => {
-    fetch(`http://localhost:3000/Articles/id/${_id}`)
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchData = async () => {
+      try {
+        const res = await axiosinstance.get(`/Articles/id/${_id}`);
+        const data = res.data;
         setArticle(data);
         setComments(data.comment || []);
         setLikeCount(data.likeCount || 0);
-        if (data.likedBy?.includes(user.email)) {
-          setLike(true);
-        } else {
-          setLike(false);
-        }
+        setLike(data.likedBy?.includes(user.email));
+      } catch (error) {
+        console.error("Error fetching article:", error);
+      } finally {
         setLoading(false);
-      })
-      .catch(() => setLoading(false));
+      }
+    };
+
+    fetchData();
   }, [_id, user.email]);
 
-  // Handle comment submit
-  const handleCommentForm = (e) => {
+  // Handle Comment Submit
+  const handleCommentForm = async (e) => {
     e.preventDefault();
     const form = e.target;
     const newComment = {
@@ -65,24 +67,23 @@ const ArticlesDetails = () => {
       photoURL: user.photoURL,
     };
 
-    axios
-      .post(`http://localhost:3000/Articles/id/${_id}/comment`, newComment)
-      .then(() => {
-        toast.success("Comment added successfully!");
-        setComments((prev) => [...prev, newComment]);
-        form.reset();
-      })
-      .catch(() => {
-        toast.error("Failed to add comment.");
-      });
+    try {
+      await axiosinstance.post(`/Articles/id/${_id}/comment`, newComment);
+      toast.success("Comment added successfully!");
+      setComments((prev) => [...prev, newComment]);
+      form.reset();
+    } catch (error) {
+      toast.error("Failed to add comment.");
+    }
   };
 
-  if (loading || !article)
+  if (loading || !article) {
     return (
       <div className="text-center py-10">
         <div className="mx-auto border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600" />
       </div>
     );
+  }
 
   const {
     title,

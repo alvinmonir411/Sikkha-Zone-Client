@@ -11,14 +11,14 @@ const topContributors = [
   {
     name: "Sarah Rahman",
     email: "sarah@example.com",
-    photoURL: "https://i.ibb.co/0qVgqD1/profile2.jpg",
+    photoURL: "https://i.ibb.co/d0r2p1gz/doctor-8.jpg",
     posts: 18,
     badge: "💡 Creative Thinker",
   },
   {
     name: "Tanvir Ahmed",
     email: "tanvir@example.com",
-    photoURL: "https://i.ibb.co/7RzNq5L/profile3.jpg",
+    photoURL: "https://i.ibb.co/BHDhFQzn/FB-IMG-1657858486671-1.jpg",
     posts: 15,
     badge: "🚀 Rising Star",
   },
@@ -40,7 +40,7 @@ const topContributors = [
   {
     name: "Tanvir Ahmed",
     email: "tanvir@example.com",
-    photoURL: "https://i.ibb.co/7RzNq5L/profile3.jpg",
+    photoURL: "https://i.ibb.co/BHDhFQzn/FB-IMG-1657858486671-1.jpg",
     posts: 15,
     badge: "🚀 Rising Star",
   },

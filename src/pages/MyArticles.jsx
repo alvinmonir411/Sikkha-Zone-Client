@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link, NavLink } from "react-router";
 import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
-import axios from "axios";
-import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import axiosinstance from "../Hooks/useaxiossecure";
 
 const MyArticles = () => {
   const { author_id } = useParams();
@@ -11,10 +10,15 @@ const MyArticles = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/MyArticle/author/${author_id}`)
-      .then((res) => res.json())
+    setLoading(true);
+    axiosinstance
+      .get(`MyArticle/author/${author_id}`)
       .then((data) => {
-        setMyData(data);
+        setMyData(data.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch articles:", error);
         setLoading(false);
       });
   }, [author_id]);
@@ -30,9 +34,9 @@ const MyArticles = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
-          .delete(`http://localhost:3000/Articles/id/${id}`)
-          .then((res) => {
+        axiosinstance
+          .delete(`Articles/id/${id}`)
+          .then(() => {
             Swal.fire({
               title: "Deleted!",
               text: "Your article has been deleted.",

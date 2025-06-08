@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { NavLink, useParams } from "react-router";
+import axiosinstance from "../Hooks/useaxiossecure";
 
-const FilterArtilce = () => {
+const FilterArticle = () => {
   const { categoryName } = useParams();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/Articles/${categoryName}`)
-      .then((response) => response.json())
-      .then((articles) => {
+    setLoading(true);
+    axiosinstance
+      .get(`Articles/${categoryName}`)
+      .then((response) => {
+        const articles = response.data;
+        articles;
         setData(articles);
         setLoading(false);
       })
@@ -51,7 +55,13 @@ const FilterArtilce = () => {
                 <p className="text-gray-600 text-sm mb-3">
                   {article.description?.slice(0, 120)}...
                 </p>
-                <div className="flex items-center justify-between text-sm text-gray-500">
+                <NavLink
+                  to={`/Articles/id/${article._id}`}
+                  className="inline-block mt-4 text-blue-600 font-medium hover:text-blue-800 transition"
+                >
+                  Read More →
+                </NavLink>
+                <div className="flex items-center justify-between text-sm text-gray-500 mt-3">
                   <p>By {article.author || "Unknown"}</p>
                   <p>{article.date}</p>
                 </div>
@@ -64,4 +74,4 @@ const FilterArtilce = () => {
   );
 };
 
-export default FilterArtilce;
+export default FilterArticle;

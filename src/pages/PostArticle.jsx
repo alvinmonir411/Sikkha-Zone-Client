@@ -1,11 +1,11 @@
 import React, { use } from "react";
-import { AuthContext } from "../context/Authcontext";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { AuthContext } from "./../context/AuthContext";
+import axiosinstance from "../Hooks/useaxiossecure";
 
 const PostArticle = () => {
   const { user } = use(AuthContext);
-  console.log(user.uid);
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission logic here
@@ -32,8 +32,8 @@ const PostArticle = () => {
       author_photoURL: user?.photoURL || "",
     };
 
-    axios
-      .post("http://localhost:3000/Articles", articleData)
+    axiosinstance
+      .post("Articles", articleData)
       .then((res) => {
         if (res.data.insertedId) {
           toast.success("Article posted successfully!");
@@ -44,7 +44,7 @@ const PostArticle = () => {
         console.error("Error posting article:", error);
         toast.error("Failed to post article. Please try again.");
       });
-    console.log("Article data:", articleData);
+    "Article data:", articleData;
   };
   return (
     <div>
