@@ -105,7 +105,7 @@ const ArticlesDetails = () => {
         className="w-full h-64 object-cover rounded-2xl shadow-lg"
       />
 
-      <h1 className="text-4xl font-bold mt-6 text-gray-900">{title}</h1>
+      <h1 className="text-4xl font-bold mt-6 text-primary-900">{title}</h1>
 
       <div className="flex items-center gap-4 mt-4">
         <img
@@ -115,8 +115,8 @@ const ArticlesDetails = () => {
         />
         <div className="flex justify-between w-full">
           <div>
-            <p className="font-semibold text-gray-700">{author_name}</p>
-            <p className="text-sm text-gray-500">{author_email}</p>
+            <p className="font-semibold text-primary-700">{author_name}</p>
+            <p className="text-sm text-primary-500">{author_email}</p>
           </div>
           <div className="md:flex gap-5 items-center">
             <button
@@ -139,7 +139,7 @@ const ArticlesDetails = () => {
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-4 mt-4 text-sm text-gray-600">
+      <div className="flex flex-wrap gap-4 mt-4 text-sm text-primary-600">
         <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-md">
           📅 {date}
         </span>
@@ -156,7 +156,7 @@ const ArticlesDetails = () => {
         ))}
       </div>
 
-      <div className="mt-8 text-lg leading-relaxed text-gray-800">
+      <div className="mt-8 text-lg leading-relaxed text-primary-800">
         {content}
       </div>
 
@@ -167,7 +167,7 @@ const ArticlesDetails = () => {
       {/* Comment Form */}
       {commentOpen && (
         <form onSubmit={handleCommentForm} className="mt-10">
-          <label className="block mb-2 text-lg font-semibold text-gray-700">
+          <label className="block mb-2 text-lg font-semibold text-primary-700">
             Leave a Comment
           </label>
           <textarea
@@ -186,7 +186,7 @@ const ArticlesDetails = () => {
 
       {/* Comments */}
       <div className="mt-8">
-        <h2 className="text-xl font-semibold text-gray-800">
+        <h2 className="text-xl font-semibold text-primary-800">
           {comments.length} Comment{comments.length !== 1 && "s"}
         </h2>
         {comments.length > 0 ? (
@@ -194,7 +194,7 @@ const ArticlesDetails = () => {
             {comments.map((c, index) => (
               <div
                 key={index}
-                className="flex gap-4 bg-gray-50 rounded-lg p-4 shadow-sm border border-gray-200"
+                className="flex gap-4 bg-base-50 rounded-lg p-4 shadow-sm border border-gray-200"
               >
                 <img
                   src={c.photoURL || "default-profile.png"}
@@ -202,14 +202,16 @@ const ArticlesDetails = () => {
                   className="w-14 h-14 rounded-full object-cover border-2 border-blue-500"
                 />
                 <div>
-                  <p className="font-semibold text-gray-900">{c.author_name}</p>
-                  <p className="mt-1 text-gray-700">{c.comment}</p>
+                  <p className="font-semibold text-primary-900">
+                    {c.author_name}
+                  </p>
+                  <p className="mt-1 text-primary-700">{c.comment}</p>
                 </div>
               </div>
             ))}
           </div>
         ) : (
-          <p className="text-gray-500 italic mt-2">
+          <p className="text-primary-500 italic mt-2">
             No comments yet. Be the first to comment!
           </p>
         )}

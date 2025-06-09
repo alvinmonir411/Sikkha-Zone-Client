@@ -60,7 +60,7 @@ const MyArticles = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-black dark:text-white p-6">
+    <div className="min-h-screen bg-base-100 dark:bg-base-900 text-black dark:text-white p-6">
       <div className="max-w-5xl mx-auto">
         <h1 className="text-3xl font-bold mb-6 text-center text-blue-600 dark:text-blue-400">
           My Articles
@@ -71,7 +71,7 @@ const MyArticles = () => {
             <span className="loading loading-spinner text-blue-500 loading-lg"></span>
           </div>
         ) : mydata.length === 0 ? (
-          <p className="text-center text-gray-600 dark:text-gray-300">
+          <p className="text-center text-primary-600 dark:text-primary-300">
             No articles found.
           </p>
         ) : (
@@ -79,7 +79,7 @@ const MyArticles = () => {
             {mydata.map((article) => (
               <div
                 key={article._id}
-                className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden flex flex-col md:flex-row gap-4 p-4"
+                className="bg-base-100 dark:bg-base-800 shadow-md rounded-lg overflow-hidden flex flex-col md:flex-row gap-4 p-4"
               >
                 <img
                   src={article.image}
@@ -87,13 +87,13 @@ const MyArticles = () => {
                   className="w-full md:w-48 h-40 object-cover rounded-md"
                 />
                 <div className="flex-1">
-                  <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-1">
+                  <h2 className="text-xl font-semibold text-primary-800 dark:text-primary-200 mb-1">
                     {article.title}
                   </h2>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2 line-clamp-3">
+                  <p className="text-sm text-primary-600 dark:text-primary-400 mb-2 line-clamp-3">
                     {article.content}
                   </p>
-                  <div className="text-sm text-gray-500 dark:text-gray-300 mb-3">
+                  <div className="text-sm text-primary-500 dark:text-primary-300 mb-3">
                     <span className="mr-4">Category: {article.category}</span>
                     <span>Date: {article.date}</span>
                   </div>

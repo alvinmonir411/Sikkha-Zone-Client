@@ -6,7 +6,6 @@ import { AuthContext } from "./../context/AuthContext";
 
 const Navber = () => {
   const { user, setUser, Logout } = use(AuthContext);
-  console.log(user?.email);
   const navigate = useNavigate();
   const handleLogout = () => {
     Logout()
@@ -93,6 +92,11 @@ const Navber = () => {
           </li>
         </ul>
       </div>
+      <input
+        type="checkbox"
+        value="forest"
+        className="toggle theme-controller"
+      />
       <div className="navbar-end">
         {user ? (
           <>
@@ -123,6 +127,7 @@ const Navber = () => {
                 <li>
                   <button onClick={handleLogout}>Log-Out</button>
                 </li>
+
                 {user && (
                   <>
                     <li>

@@ -78,11 +78,11 @@ const Ragister = () => {
 
   return (
     <div>
-      <div className="mt-10 w-full mx-auto max-w-md p-4 rounded-md shadow sm:p-8 dark:bg-gray-50 dark:text-gray-800">
+      <div className="mt-10 w-full mx-auto max-w-md p-4 rounded-md shadow sm:p-8 dark:bg-base-50 dark:text-primary-800">
         <h2 className="mb-3 text-3xl font-semibold text-center">
           Sign Up to your account
         </h2>
-        <p className="text-sm text-center dark:text-gray-600">
+        <p className="text-sm text-center dark:text-primary-600">
           Already have account?
           <NavLink to="/login" className="focus:underline hover:underline">
             Login here
@@ -100,9 +100,9 @@ const Ragister = () => {
           </button>
         </div>
         <div className="flex items-center w-full my-4">
-          <hr className="w-full dark:text-gray-600" />
-          <p className="px-3 dark:text-gray-600">OR</p>
-          <hr className="w-full dark:text-gray-600" />
+          <hr className="w-full dark:text-primary-600" />
+          <p className="px-3 dark:text-primary-600">OR</p>
+          <hr className="w-full dark:text-primary-600" />
         </div>
         <form onSubmit={HandleRegister} className="space-y-8">
           <div className="space-y-4">
@@ -113,7 +113,7 @@ const Ragister = () => {
                 type="text"
                 name="name"
                 placeholder="Enter your name"
-                className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600"
+                className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-base-50 dark:text-primary-800 focus:dark:border-violet-600"
               />
             </div>{" "}
             <div className="space-y-2">
@@ -122,7 +122,7 @@ const Ragister = () => {
                 type="text"
                 name="photoUrl"
                 placeholder="Photo-Url"
-                className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600"
+                className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-base-50 dark:text-primary-800 focus:dark:border-violet-600"
               />
             </div>
             <div className="space-y-2">
@@ -133,7 +133,7 @@ const Ragister = () => {
                 type="email"
                 name="email"
                 placeholder="leroy@jenkins.com"
-                className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600"
+                className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-base-50 dark:text-primary-800 focus:dark:border-violet-600"
               />
             </div>
             <div className="space-y-2">
@@ -142,7 +142,7 @@ const Ragister = () => {
                 <a
                   rel="noopener noreferrer"
                   href="#"
-                  className="text-xs hover:underline dark:text-gray-600"
+                  className="text-xs hover:underline dark:text-primary-600"
                 >
                   Forgot password?
                 </a>
@@ -152,20 +152,20 @@ const Ragister = () => {
                 name="password"
                 onInput={handlePasswordValidation}
                 placeholder="*****"
-                className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600"
+                className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-base-50 dark:text-primary-800 focus:dark:border-violet-600"
               />
             </div>
           </div>
           <button
             type="submit"
-            className="w-full btn px-8 py-3 font-semibold rounded-md dark:bg-violet-600 dark:text-gray-50"
+            className="w-full btn px-8 py-3 font-semibold rounded-md dark:bg-violet-600 dark:text-primary-50"
           >
             Sign in
           </button>{" "}
           <NavLink
             to="/"
             type="button"
-            className="w-full btn px-8 py-3 font-semibold rounded-md dark:bg-violet-600 dark:text-gray-50"
+            className="w-full btn px-8 py-3 font-semibold rounded-md dark:bg-violet-600 dark:text-primary-50"
           >
             Back To Home
           </NavLink>

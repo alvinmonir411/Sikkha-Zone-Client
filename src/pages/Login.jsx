@@ -50,7 +50,7 @@ const Login = () => {
           <div className="text-center lg:text-left">
             <h1 className="text-5xl font-bold">Login now!</h1>
             <Lottie animationData={lottianimation} loop={true}></Lottie>
-            <p className="text-sm text-center dark:text-gray-600">
+            <p className="text-sm text-center dark:text-primary-600">
               Not have account?
               <NavLink
                 to="/ragister"
@@ -90,7 +90,7 @@ const Login = () => {
               </form>
               <button
                 onClick={handleGoogleLogin}
-                className="btn bg-white text-black border-[#e5e5e5]"
+                className="btn bg-base-100 text-black border-[#e5e5e5]"
               >
                 <FaGoogle className="text-amber-400 " />
                 Login with Google

@@ -66,17 +66,17 @@ const UpdateArticle = () => {
       <h1 className="text-blue-500 font-semibold text-5xl text-center">
         Update your Article
       </h1>
-      <div className="max-w-5xl mx-auto px-4 py-6 shadow-2xl rounded-lg bg-white dark:bg-gray-100">
+      <div className="max-w-5xl mx-auto px-4 py-6 shadow-2xl rounded-lg bg-base-100 dark:bg-base-100">
         <h2 className="text-3xl font-bold text-center mb-4">
           Share Your Knowledge
         </h2>
-        <p className="text-gray-600 text-center mb-6">
+        <p className="text-primary-600 text-center mb-6">
           Share your knowledge and insights with the{" "}
           <span className="font-semibold">world</span>.
         </p>
         <form onSubmit={handleSubmit} className="space-y-4">
           <fieldset>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-primary-700">
               Article Title
             </label>
             <input
@@ -92,7 +92,7 @@ const UpdateArticle = () => {
           <fieldset>
             <label
               htmlFor="content"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-primary-700"
             >
               Article Content
             </label>
@@ -127,7 +127,7 @@ const UpdateArticle = () => {
           <fieldset>
             <label
               htmlFor="author"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-primary-700"
             >
               Author Name
             </label>
@@ -144,7 +144,7 @@ const UpdateArticle = () => {
           <fieldset>
             <label
               htmlFor="date"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-primary-700"
             >
               Date
             </label>
@@ -158,7 +158,7 @@ const UpdateArticle = () => {
           </fieldset>
 
           <fieldset>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-primary-700">
               Article Image URL
             </label>
             <input
@@ -174,7 +174,7 @@ const UpdateArticle = () => {
           <fieldset>
             <label
               htmlFor="tags"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-primary-700"
             >
               Tags (comma-separated)
             </label>

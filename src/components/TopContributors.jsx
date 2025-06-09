@@ -48,7 +48,7 @@ const topContributors = [
 
 const TopContributors = () => {
   return (
-    <div className="bg-white shadow-md rounded-xl p-6 container mx-auto mt-12">
+    <div className="bg-base-100 shadow-md rounded-xl p-6 container mx-auto mt-12">
       <h2 className="text-3xl font-bold text-center text-blue-600 mb-6">
         🏆 Top Contributors
       </h2>
@@ -56,7 +56,7 @@ const TopContributors = () => {
         {topContributors.map((user, index) => (
           <div
             key={index}
-            className="flex flex-col items-center bg-gray-100 p-4 rounded-lg shadow hover:shadow-lg transition"
+            className="flex flex-col items-center bg-base-100 p-4 rounded-lg shadow hover:shadow-lg transition"
           >
             <img
               src={user.photoURL}
@@ -64,9 +64,9 @@ const TopContributors = () => {
               className="w-20 h-20 rounded-full mb-3 border-2 border-blue-500"
             />
             <h3 className="text-lg font-semibold">{user.name}</h3>
-            <p className="text-sm text-gray-500">{user.email}</p>
+            <p className="text-sm text-primary-500">{user.email}</p>
             <span className="text-sm text-green-600 mt-2">{user.badge}</span>
-            <p className="text-sm text-gray-700 mt-1">{user.posts} Posts</p>
+            <p className="text-sm text-primary-700 mt-1">{user.posts} Posts</p>
           </div>
         ))}
       </div>

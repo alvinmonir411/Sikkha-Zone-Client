@@ -30,7 +30,7 @@ const FilterArticle = () => {
       </h1>
 
       {loading ? (
-        <p className="text-center text-lg text-gray-500">Loading...</p>
+        <p className="text-center text-lg text-primary-500">Loading...</p>
       ) : data.length === 0 ? (
         <p className="text-center text-red-500 text-xl">No articles found.</p>
       ) : (
@@ -38,7 +38,7 @@ const FilterArticle = () => {
           {data.map((article) => (
             <div
               key={article._id}
-              className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300"
+              className="bg-base-100 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300"
             >
               <img
                 src={article.image}
@@ -49,10 +49,10 @@ const FilterArticle = () => {
                 <span className="inline-block bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full mb-3 uppercase tracking-wide">
                   {article.category}
                 </span>
-                <h2 className="text-xl font-semibold text-gray-800 mb-2">
+                <h2 className="text-xl font-semibold text-primary-800 mb-2">
                   {article.title}
                 </h2>
-                <p className="text-gray-600 text-sm mb-3">
+                <p className="text-primary-600 text-sm mb-3">
                   {article.description?.slice(0, 120)}...
                 </p>
                 <NavLink
@@ -61,7 +61,7 @@ const FilterArticle = () => {
                 >
                   Read More →
                 </NavLink>
-                <div className="flex items-center justify-between text-sm text-gray-500 mt-3">
+                <div className="flex items-center justify-between text-sm text-primary-500 mt-3">
                   <p>By {article.author || "Unknown"}</p>
                   <p>{article.date}</p>
                 </div>

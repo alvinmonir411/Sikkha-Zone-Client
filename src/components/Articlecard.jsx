@@ -16,7 +16,7 @@ const Articlecard = ({ article }) => {
 
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white rounded-2xl shadow-lg overflow-hidden p-6 mb-6 transition-shadow hover:shadow-2xl hover:scale-[1.02] duration-300">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-base-100 rounded-2xl shadow-lg overflow-hidden p-6 mb-6 transition-shadow hover:shadow-2xl hover:scale-[1.02] duration-300">
         {/* Image */}
         <div className="w-full h-64 md:h-auto overflow-hidden rounded-xl">
           <img
@@ -32,10 +32,10 @@ const Articlecard = ({ article }) => {
             <span className="inline-block bg-indigo-100 text-indigo-700 text-xs font-semibold px-3 py-1 rounded-full">
               {category}
             </span>
-            <h2 className="text-2xl font-semibold mt-2 text-gray-900 leading-snug">
+            <h2 className="text-2xl font-semibold mt-2 text-primary-900 leading-snug">
               {title}
             </h2>
-            <p className="text-gray-700 mt-3 line-clamp-4 leading-relaxed">
+            <p className="text-primary-700 mt-3 line-clamp-4 leading-relaxed">
               {content}
             </p>
             <NavLink
@@ -55,8 +55,8 @@ const Articlecard = ({ article }) => {
                 className="w-10 h-10 rounded-full"
               />
               <div>
-                <p className="font-semibold text-gray-700">{author_name}</p>
-                <p className="text-sm text-gray-500">{date}</p>
+                <p className="font-semibold text-primary-700">{author_name}</p>
+                <p className="text-sm text-primary-500">{date}</p>
               </div>
             </div>
             <div className="hidden md:flex flex-wrap gap-2">

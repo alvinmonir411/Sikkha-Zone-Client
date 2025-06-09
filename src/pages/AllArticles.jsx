@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Articlecard from "../components/Articlecard";
 import axiosinstance from "../Hooks/useaxiossecure";
+import axios from "axios";
 
 const AllArticles = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    axiosinstance.get("Articles").then((data) => {
-      data.data;
+    axios.get("http://localhost:3000/Articles").then((data) => {
       setData(data.data);
+      console.log(data.data);
       setLoading(false);
     });
   }, []);

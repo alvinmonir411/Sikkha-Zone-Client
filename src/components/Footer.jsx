@@ -6,7 +6,7 @@ import { NavLink } from "react-router";
 const Footer = () => {
   return (
     <div>
-      <footer className="bg-gray-900 text-white py-10">
+      <footer className="bg-neutral text-white py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
             {/* Logo */}
@@ -21,7 +21,7 @@ const Footer = () => {
             </div>
 
             {/* Links */}
-            <div className="flex flex-col md:flex-row gap-4 text-sm text-gray-300">
+            <div className="flex flex-col md:flex-row gap-4 text-sm text-primary-300">
               <a href="#" className="hover:text-white transition">
                 About Us
               </a>
@@ -55,7 +55,7 @@ const Footer = () => {
           </div>
 
           {/* Bottom text */}
-          <div className="mt-8 text-center text-sm text-gray-500">
+          <div className="mt-8 text-center text-sm text-primary-500">
             &copy; 2025 ShikkhaZone. All rights reserved.
           </div>
         </div>
