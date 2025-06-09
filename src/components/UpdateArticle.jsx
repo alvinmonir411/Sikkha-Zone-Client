@@ -1,9 +1,9 @@
 import React, { use, useState } from "react";
-import { AuthContext } from "../context/Authcontext";
 
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router";
 import axiosinstance from "../Hooks/useaxiossecure";
+import { AuthContext } from "../context/AuthContext";
 
 const UpdateArticle = () => {
   const { id } = useParams();

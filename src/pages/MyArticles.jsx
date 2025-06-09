@@ -5,14 +5,14 @@ import Swal from "sweetalert2";
 import axiosinstance from "../Hooks/useaxiossecure";
 
 const MyArticles = () => {
-  const { author_id } = useParams();
+  const { author_email } = useParams();
   const [mydata, setMyData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true);
     axiosinstance
-      .get(`MyArticle/author/${author_id}`)
+      .get(`MyArticle/author/${author_email}`)
       .then((data) => {
         setMyData(data.data);
         setLoading(false);
@@ -21,7 +21,7 @@ const MyArticles = () => {
         console.error("Failed to fetch articles:", error);
         setLoading(false);
       });
-  }, [author_id]);
+  }, [author_email]);
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -60,9 +60,9 @@ const MyArticles = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-black dark:text-white p-6">
       <div className="max-w-5xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6 text-center text-blue-600">
+        <h1 className="text-3xl font-bold mb-6 text-center text-blue-600 dark:text-blue-400">
           My Articles
         </h1>
 
@@ -71,13 +71,15 @@ const MyArticles = () => {
             <span className="loading loading-spinner text-blue-500 loading-lg"></span>
           </div>
         ) : mydata.length === 0 ? (
-          <p className="text-center text-gray-600">No articles found.</p>
+          <p className="text-center text-gray-600 dark:text-gray-300">
+            No articles found.
+          </p>
         ) : (
           <div className="space-y-6">
             {mydata.map((article) => (
               <div
                 key={article._id}
-                className="bg-white shadow-md rounded-lg overflow-hidden flex flex-col md:flex-row gap-4 p-4"
+                className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden flex flex-col md:flex-row gap-4 p-4"
               >
                 <img
                   src={article.image}
@@ -85,13 +87,13 @@ const MyArticles = () => {
                   className="w-full md:w-48 h-40 object-cover rounded-md"
                 />
                 <div className="flex-1">
-                  <h2 className="text-xl font-semibold text-gray-800 mb-1">
+                  <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-1">
                     {article.title}
                   </h2>
-                  <p className="text-sm text-gray-600 mb-2 line-clamp-3">
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2 line-clamp-3">
                     {article.content}
                   </p>
-                  <div className="text-sm text-gray-500 mb-3">
+                  <div className="text-sm text-gray-500 dark:text-gray-300 mb-3">
                     <span className="mr-4">Category: {article.category}</span>
                     <span>Date: {article.date}</span>
                   </div>
@@ -106,13 +108,13 @@ const MyArticles = () => {
                     </NavLink>
                     <Link
                       to={`/update-article/${article._id}`}
-                      className="flex items-center gap-1 text-green-600 hover:underline"
+                      className="flex items-center gap-1 text-green-600 dark:text-green-400 hover:underline"
                     >
                       <FaEdit /> Edit
                     </Link>
                     <button
                       onClick={() => handleDelete(article._id)}
-                      className="flex items-center gap-1 text-red-600 hover:underline"
+                      className="flex items-center gap-1 text-red-600 dark:text-red-400 hover:underline"
                     >
                       <FaTrash /> Delete
                     </button>

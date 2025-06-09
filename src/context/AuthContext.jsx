@@ -8,10 +8,10 @@ import {
   updateProfile,
 } from "firebase/auth";
 import React, { createContext, useEffect, useState } from "react";
-import { auth } from "../Firebaseauth/firebase.init";
 
 import { toast } from "react-toastify";
 import axios from "axios";
+import { auth } from "./../Firebaseauth/firebase.init";
 
 export const AuthContext = createContext();
 

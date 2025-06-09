@@ -3,8 +3,9 @@ import React, { use } from "react";
 import { FaGoogle } from "react-icons/fa6";
 import lottianimation from "../assets/lottifiles.json";
 import { NavLink, useNavigate } from "react-router";
-import { AuthContext } from "../context/Authcontext";
+
 import { toast } from "react-toastify";
+import { AuthContext } from "./../context/AuthContext";
 const Login = () => {
   const Navigate = useNavigate();
 

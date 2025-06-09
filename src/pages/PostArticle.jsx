@@ -8,7 +8,7 @@ const PostArticle = () => {
   const { user } = use(AuthContext);
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
+
     const title = e.target.title.value;
     const content = e.target.content.value;
     const category = e.target.category.value;

@@ -1,11 +1,12 @@
 import React, { use, useContext } from "react";
 import { NavLink, useNavigate } from "react-router";
-import { AuthContext } from "../context/Authcontext";
 import { IoHandLeft } from "react-icons/io5";
 import { toast } from "react-toastify";
+import { AuthContext } from "./../context/AuthContext";
 
 const Navber = () => {
   const { user, setUser, Logout } = use(AuthContext);
+  console.log(user?.email);
   const navigate = useNavigate();
   const handleLogout = () => {
     Logout()
@@ -139,7 +140,7 @@ const Navber = () => {
                         className={({ isActive }) =>
                           isActive ? "text-blue-500 underline" : ""
                         }
-                        to={`/MyArticle/author/${user.uid}`}
+                        to={`/MyArticle/author/${user?.email}`}
                       >
                         My Article
                       </NavLink>
