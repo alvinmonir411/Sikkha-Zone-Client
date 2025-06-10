@@ -46,17 +46,6 @@ const AuthProvider = ({ children }) => {
         // User is signed in
         setUser(currentUser);
         "User logged in:", currentUser;
-        if (currentUser?.email) {
-          axios
-            .post("https://shikkha-zone-server.vercel.app/jwt", {
-              email: currentUser?.email,
-            })
-            .then((res) => {
-              res.data;
-
-              localStorage.setItem("token", res.data.token);
-            });
-        }
       } else {
         // User is signed out
         setUser(null);

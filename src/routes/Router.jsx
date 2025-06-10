@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router";
 import Root from "../layouts/Root";
 import AllArticles from "./../pages/AllArticles";
 import PostArticle from "./../pages/PostArticle";
-
 import Login from "../pages/Login";
 import Ragister from "../pages/Ragister";
 import PrivateRoute from "../Privetrout/PrivateRoute ";

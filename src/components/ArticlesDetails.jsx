@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { AiFillLike } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { FaComment } from "react-icons/fa";
-import axiosinstance from "../Hooks/useaxiossecure";
+import axios from "axios"; //
 import { AuthContext } from "./../context/AuthContext";
 
 const ArticlesDetails = () => {
@@ -15,10 +15,15 @@ const ArticlesDetails = () => {
   const [likeCount, setLikeCount] = useState(0);
   const [comments, setComments] = useState([]);
 
-  // Handle Like
+  // ✅ Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // ✅ Handle Like
   const handleLike = async () => {
     try {
-      await axiosinstance.post(`/Articles/id/${_id}/like`, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/id/${_id}/like`, {
         userEmail: user.email,
       });
       setLike(true);
@@ -31,11 +36,13 @@ const ArticlesDetails = () => {
     }
   };
 
-  // Fetch article
+  // ✅ Fetch article
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axiosinstance.get(`/Articles/id/${_id}`);
+        const res = await axios.get(
+          `${import.meta.env.VITE_API_URL}/Articles/id/${_id}`
+        );
         const data = res.data;
         setArticle(data);
         setComments(data.comment || []);
@@ -51,19 +58,28 @@ const ArticlesDetails = () => {
     fetchData();
   }, [_id, user.email]);
 
-  // Handle Comment Submit
+  // ✅ Handle Comment Submit
   const handleCommentForm = async (e) => {
     e.preventDefault();
     const form = e.target;
+    const commentText = form.comment.value.trim();
+
+    if (!commentText) {
+      return toast.error("Comment cannot be empty.");
+    }
+
     const newComment = {
-      comment: form.comment.value.trim(),
+      comment: commentText,
       articleId: _id,
       author_name: user.displayName,
       photoURL: user.photoURL,
     };
 
     try {
-      await axiosinstance.post(`/Articles/id/${_id}/comment`, newComment);
+      await axios.post(
+        `${import.meta.env.VITE_API_URL}/Articles/id/${_id}/comment`,
+        newComment
+      );
       toast.success("Comment added successfully!");
       setComments((prev) => [...prev, newComment]);
       form.reset();
@@ -114,12 +130,13 @@ const ArticlesDetails = () => {
           <div className="md:flex gap-5 items-center">
             <button
               onClick={handleLike}
+              disabled={like}
               className={`flex cursor-pointer items-center gap-1 ${
                 like ? "text-blue-500" : ""
               }`}
             >
               <AiFillLike />
-              like {likeCount}
+              Like {likeCount}
             </button>
             <button className="flex cursor-pointer items-center gap-1">
               <FaComment />
@@ -150,6 +167,7 @@ const ArticlesDetails = () => {
       <NavLink className="btn bg-blue-300 w-full mt-10" to="/AllArticles">
         View More Articles
       </NavLink>
+
       {/* Comment Form */}
       <form onSubmit={handleCommentForm} className="mt-10">
         <label className="block mb-2 text-lg font-semibold text-primary-700">

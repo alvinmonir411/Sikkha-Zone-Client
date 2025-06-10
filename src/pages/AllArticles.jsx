@@ -7,12 +7,10 @@ const AllArticles = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    axios
-      .get("https://shikkha-zone-server.vercel.app/Articles")
-      .then((data) => {
-        setData(data.data);
-        setLoading(false);
-      });
+    axios.get(`${import.meta.env.VITE_API_URL}Articles`).then((data) => {
+      setData(data.data);
+      setLoading(false);
+    });
   }, []);
   return (
     <div>

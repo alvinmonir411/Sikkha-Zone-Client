@@ -11,7 +11,7 @@ const FilterArticle = () => {
     setLoading(true);
 
     axios
-      .get(`https://shikkha-zone-server.vercel.app/Articles/${categoryName}`)
+      .get(`${import.meta.env.VITE_API_URL}Articles/${categoryName}`)
       .then((response) => {
         const articles = response.data;
         articles;

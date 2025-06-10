@@ -1,23 +1,26 @@
-import React, { use, useState } from "react";
-
+import React, { useState, useEffect, useContext } from "react";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router";
-import axiosinstance from "../Hooks/useaxiossecure";
 import { AuthContext } from "../context/AuthContext";
+import axios from "axios";
 
 const UpdateArticle = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { user } = use(AuthContext);
-  const [data, setData] = useState([]);
-  useState(() => {
-    axiosinstance(`Articles/id/${id}`)
-      .then((data) => {
-        setData(data.data);
+  const { user } = useContext(AuthContext);
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    axios(`${import.meta.env.VITE_API_URL}Articles/id/${id}`)
+      .then((res) => {
+        setData(res.data);
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching article:", error);
         toast.error("Failed to fetch article data.");
+        setLoading(false);
       });
   }, [id]);
 
@@ -30,7 +33,9 @@ const UpdateArticle = () => {
     const author = e.target.author.value;
     const date = e.target.date.value;
     const image = e.target.image.value;
-    const tags = e.target.tags.value.split(",").map((tag) => tag.trim());
+    const tags = e.target.tags.value
+      ? e.target.tags.value.split(",").map((tag) => tag.trim())
+      : [];
 
     const updatedArticle = {
       title,
@@ -46,9 +51,9 @@ const UpdateArticle = () => {
       author_photoURL: user?.photoURL || "",
     };
 
-    axiosinstance
-      .put(`Articles/${id}`, updatedArticle)
-      .then((res) => {
+    axios
+      .put(`${import.meta.env.VITE_API_URL}Articles/${id}`, updatedArticle)
+      .then(() => {
         toast.success("Article updated successfully!");
         navigate("/");
       })
@@ -58,9 +63,16 @@ const UpdateArticle = () => {
       });
   };
 
+  if (loading) {
+    return <div className="text-center mt-10">Loading article data...</div>;
+  }
+
+  if (!data) {
+    return <div className="text-center mt-10">Article not found.</div>;
+  }
+
   const { title, content, category, author, date, image, tags } = data;
 
-  const updateinfo = {};
   return (
     <div>
       <h1 className="text-blue-500 font-semibold text-5xl text-center">
@@ -86,6 +98,7 @@ const UpdateArticle = () => {
               defaultValue={title}
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
               placeholder="Enter article title"
+              required
             />
           </fieldset>
 
@@ -103,6 +116,7 @@ const UpdateArticle = () => {
               rows="4"
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
               placeholder="Enter article content"
+              required
             ></textarea>
           </fieldset>
 
@@ -138,6 +152,7 @@ const UpdateArticle = () => {
               defaultValue={author}
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
               placeholder="Enter author name"
+              required
             />
           </fieldset>
 
@@ -154,6 +169,7 @@ const UpdateArticle = () => {
               id="date"
               defaultValue={date}
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+              required
             />
           </fieldset>
 

@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import Categores from "./Categores";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
 
 const FeatureSection = () => {
   const [data, setData] = useState([]);
-
   useEffect(() => {
-    axios
-      .get("https://shikkha-zone-server.vercel.app/FeatureArticles")
-      .then((res) => setData(res.data));
+    fetch(`${import.meta.env.VITE_API_URL}FeatureArticles`)
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch articles:", err);
+      });
   }, []);
-
   return (
     <section className="py-12 px-4 bg-base-100 rounded-lg shadow-md">
       <h1 className="text-4xl font-bold text-center text-blue-600 mb-10">
