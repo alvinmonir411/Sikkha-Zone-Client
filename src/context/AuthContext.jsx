@@ -48,7 +48,7 @@ const AuthProvider = ({ children }) => {
         "User logged in:", currentUser;
         if (currentUser?.email) {
           axios
-            .post("http://localhost:3000/jwt", {
+            .post("https://shikkha-zone-server.vercel.app/jwt", {
               email: currentUser?.email,
             })
             .then((res) => {

@@ -14,11 +14,6 @@ const ArticlesDetails = () => {
   const [like, setLike] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [comments, setComments] = useState([]);
-  const [commentOpen, setCommentOpen] = useState(false);
-
-  const handleCommentToggle = () => {
-    setCommentOpen(!commentOpen);
-  };
 
   // Handle Like
   const handleLike = async () => {
@@ -104,9 +99,7 @@ const ArticlesDetails = () => {
         alt={title}
         className="w-full h-64 object-cover rounded-2xl shadow-lg"
       />
-
       <h1 className="text-4xl font-bold mt-6 text-primary-900">{title}</h1>
-
       <div className="flex items-center gap-4 mt-4">
         <img
           src={author_photoURL}
@@ -128,17 +121,13 @@ const ArticlesDetails = () => {
               <AiFillLike />
               like {likeCount}
             </button>
-            <button
-              onClick={handleCommentToggle}
-              className="flex cursor-pointer items-center gap-1"
-            >
+            <button className="flex cursor-pointer items-center gap-1">
               <FaComment />
               Comment
             </button>
           </div>
         </div>
       </div>
-
       <div className="flex flex-wrap gap-4 mt-4 text-sm text-primary-600">
         <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-md">
           📅 {date}
@@ -155,36 +144,30 @@ const ArticlesDetails = () => {
           </span>
         ))}
       </div>
-
       <div className="mt-8 text-lg leading-relaxed text-primary-800">
         {content}
       </div>
-
       <NavLink className="btn bg-blue-300 w-full mt-10" to="/AllArticles">
         View More Articles
       </NavLink>
-
       {/* Comment Form */}
-      {commentOpen && (
-        <form onSubmit={handleCommentForm} className="mt-10">
-          <label className="block mb-2 text-lg font-semibold text-primary-700">
-            Leave a Comment
-          </label>
-          <textarea
-            name="comment"
-            className="border-2 w-full rounded p-2"
-            rows="4"
-            required
-          ></textarea>
-          <input
-            type="submit"
-            className="btn mt-2 bg-blue-500 text-white px-4 py-2 rounded"
-            value="Submit"
-          />
-        </form>
-      )}
+      <form onSubmit={handleCommentForm} className="mt-10">
+        <label className="block mb-2 text-lg font-semibold text-primary-700">
+          Leave a Comment
+        </label>
+        <textarea
+          name="comment"
+          className="border-2 w-full rounded p-2"
+          rows="4"
+          required
+        ></textarea>
+        <input
+          type="submit"
+          className="btn mt-2 bg-blue-500 text-white px-4 py-2 rounded"
+          value="Submit"
+        />
+      </form>
 
-      {/* Comments */}
       <div className="mt-8">
         <h2 className="text-xl font-semibold text-primary-800">
           {comments.length} Comment{comments.length !== 1 && "s"}

@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router";
 import { IoHandLeft } from "react-icons/io5";
 import { toast } from "react-toastify";
 import { AuthContext } from "./../context/AuthContext";
+import { motion } from "framer-motion";
 
 const Navber = () => {
   const { user, setUser, Logout } = use(AuthContext);
@@ -19,7 +20,15 @@ const Navber = () => {
       });
   };
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <motion.div
+      className="navbar bg-base-100 shadow-sm"
+      initial={{
+        opacity: 0,
+        y: -20,
+      }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+    >
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -61,11 +70,21 @@ const Navber = () => {
               >
                 All Articles
               </NavLink>
-            </li>{" "}
+            </li>
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "text-blue-500 underline" : ""
+                }
+                to="/about"
+              >
+                About
+              </NavLink>
+            </li>
           </ul>
         </div>
-        <NavLink to="/" className="btn btn-ghost text-xl">
-          Shikkha<span className="text-blue-500 font-semibold">Zone</span>
+        <NavLink to="/" className="hidden md:block btn btn-ghost text-xl">
+          Shikkha<span className=" text-blue-500 font-semibold">Zone</span>
         </NavLink>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -88,6 +107,16 @@ const Navber = () => {
               to="/AllArticles"
             >
               All Articles
+            </NavLink>
+          </li>{" "}
+          <li>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "text-blue-500 underline" : ""
+              }
+              to="/about"
+            >
+              About
             </NavLink>
           </li>
         </ul>
@@ -171,7 +200,7 @@ const Navber = () => {
           </>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

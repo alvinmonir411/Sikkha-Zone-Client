@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router";
+import { motion } from "framer-motion";
 
 const slides = [
   {
@@ -42,7 +43,12 @@ const HeroSlider = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-[500px] md:h-[600px] overflow-hidden rounded-xl">
+    <motion.div
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      className="relative w-full h-[500px] md:h-[600px] overflow-hidden rounded-xl"
+    >
       {/* Slides */}
       {slides.map((slide, index) => (
         <div
@@ -90,7 +96,7 @@ const HeroSlider = () => {
           ❯
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Categores from "./Categores";
-import { NavLink } from "react-router";
-import axiosinstance from "../Hooks/useaxiossecure";
+import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 const FeatureSection = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axiosinstance.get("FeatureArticles").then((res) => setData(res.data));
+    axios
+      .get("https://shikkha-zone-server.vercel.app/FeatureArticles")
+      .then((res) => setData(res.data));
   }, []);
 
   return (

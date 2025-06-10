@@ -12,6 +12,7 @@ import ArticlesDetails from "../components/ArticlesDetails";
 import MyArticles from "./../pages/MyArticles";
 import UpdateArticle from "../components/UpdateArticle";
 import Eror from "../Eroor/Eror";
+import AboutUs from "../pages/AboutUs ";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +29,11 @@ export const router = createBrowserRouter([
         path: "/AllArticles",
         element: <AllArticles />,
       },
+      {
+        path: "/about",
+        Component: AboutUs,
+      },
+      ,
       {
         path: "/PostArticle",
         element: (

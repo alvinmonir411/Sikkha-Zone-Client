@@ -1,6 +1,6 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router";
-import axiosinstance from "../Hooks/useaxiossecure";
 
 const FilterArticle = () => {
   const { categoryName } = useParams();
@@ -9,8 +9,9 @@ const FilterArticle = () => {
 
   useEffect(() => {
     setLoading(true);
-    axiosinstance
-      .get(`Articles/${categoryName}`)
+
+    axios
+      .get(`https://shikkha-zone-server.vercel.app/Articles/${categoryName}`)
       .then((response) => {
         const articles = response.data;
         articles;

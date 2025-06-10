@@ -1,12 +1,83 @@
-# React + Vite
+# 📘 ShikkhaZone – Knowledge Sharing Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to **ShikkhaZone**, a full-stack MERN-based knowledge-sharing platform where students and learners can share articles, gain insights, and engage in meaningful discussions.
 
-Currently, two official plugins are available:
+## 🌐 Live Site
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+👉 [Click here to visit the live site](https://your-live-site-link.com)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📖 Project Purpose
+
+ShikkhaZone was developed as part of an assignment project to assess full-stack development, user authentication, CRUD operations, secure routing, and overall application architecture. The platform provides a clean, responsive, and secure experience where users can:
+
+- Read and post articles
+- Comment on discussions
+- Like content
+- Filter articles by category
+- Manage personal articles securely
+
+---
+
+## 🚀 Key Features
+
+- 🔐 **Authentication** using Firebase (Email/Password and Google Sign-In)
+- 📑 **Post, Edit, and Delete** personal articles
+- 🗂️ Filter and view articles by **Category**
+- 💬 **Comment and Like** system (stored in MongoDB)
+- 🌙 **Dark/Light Theme Toggle**
+- 👤 **User Dashboard** to manage content
+- ❌ Custom **404 Error Page**
+- 🖼️ Fully **Responsive Design**
+- 🌈 Smooth UI Animations using **Framer Motion**
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+- **React.js** (v19+)
+- **React Router DOM** (v7)
+- **Tailwind CSS** (v4)
+- **DaisyUI**
+- **Framer Motion** – animation
+- **Lottie React** – animation
+- **React Toastify** – notifications
+- **React CountUp** – counter animations
+- **SweetAlert2** – alerts/modals
+- **Swiper** – sliders
+
+### Backend
+
+- **Node.js**
+- **Express.js**
+- **MongoDB**
+- **Firebase Authentication**
+- **JWT (JSON Web Tokens)** – for secure private route protection
+- **CORS & Dotenv** – for secure server configuration
+
+---
+
+## 📦 Used NPM Packages
+
+### Frontend Dependencies
+
+```json
+"framer-motion": "^12.16.0",
+"lottie-react": "^2.4.1",
+"react": "^19.1.0",
+"react-countup": "^6.5.3",
+"react-dom": "^19.1.0",
+"react-icons": "^5.5.0",
+"react-router-dom": "^7.6.2",
+"swiper": "^11.2.8"
+```
+
+Security Measures
+All Firebase and MongoDB credentials stored in .env files
+
+JWT tokens stored securely in localStorage
+
+Protected routes for posting/editing articles and viewing "My Articles"
