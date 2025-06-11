@@ -1,17 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router";
+import useAxiosSecure from "../Hooks/useaxiossecure";
 
 const FilterArticle = () => {
   const { categoryName } = useParams();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const axiosSecure = useAxiosSecure();
   useEffect(() => {
     setLoading(true);
 
-    axios
-      .get(`${import.meta.env.VITE_API_URL}Articles/${categoryName}`)
+    axiosSecure
+      .get(`Articles/${categoryName}`)
       .then((response) => {
         const articles = response.data;
         articles;

@@ -2,20 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link, NavLink } from "react-router"; // react-router-dom (not "react-router")
 import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import Swal from "sweetalert2";
-import axios from "axios";
+
+import useAxiosSecure from "../Hooks/useaxiossecure";
 
 const MyArticles = () => {
   const { author_email } = useParams();
   const [mydata, setMyData] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const axiosSecure = useAxiosSecure();
   useEffect(() => {
     setLoading(true);
 
-    fetch(`${import.meta.env.VITE_API_URL}MyArticle/author/${author_email}`)
-      .then((res) => res.json())
+    axiosSecure
+      .get(`MyArticle/author/${author_email}`)
       .then((data) => {
-        setMyData(data);
+        setMyData(data.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -35,8 +36,8 @@ const MyArticles = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
-          .delete(`${import.meta.env.VITE_API_URL}Articles/id/${id}`)
+        axiosSecure
+          .delete(`Articles/id/${id}`)
           .then(() => {
             Swal.fire({
               title: "Deleted!",

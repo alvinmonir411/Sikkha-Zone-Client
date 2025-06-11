@@ -10,7 +10,7 @@ import {
 import React, { createContext, useEffect, useState } from "react";
 
 import { toast } from "react-toastify";
-import axios from "axios";
+
 import { auth } from "./../Firebaseauth/firebase.init";
 
 export const AuthContext = createContext();
@@ -43,9 +43,7 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
-        // User is signed in
         setUser(currentUser);
-        "User logged in:", currentUser;
       } else {
         // User is signed out
         setUser(null);

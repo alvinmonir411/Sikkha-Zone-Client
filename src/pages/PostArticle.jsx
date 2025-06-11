@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
-import axios from "axios";
+
 import { toast } from "react-toastify";
 import { AuthContext } from "./../context/AuthContext";
+import useAxiosSecure from "../Hooks/useaxiossecure";
 
 const PostArticle = () => {
   const { user } = useContext(AuthContext);
-
+  const axiosSecure = useAxiosSecure();
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -34,8 +35,8 @@ const PostArticle = () => {
     };
 
     // ✅ Post the article
-    axios
-      .post(`${import.meta.env.VITE_API_URL}Articles`, articleData)
+    axiosSecure
+      .post(`Articles`, articleData)
       .then((res) => {
         if (res.data.insertedId) {
           toast.success("Article posted successfully!");

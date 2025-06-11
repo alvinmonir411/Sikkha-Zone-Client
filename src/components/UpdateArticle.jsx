@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router";
 import { AuthContext } from "../context/AuthContext";
-import axios from "axios";
+import useAxiosSecure from "../Hooks/useaxiossecure";
 
 const UpdateArticle = () => {
   const { id } = useParams();
@@ -10,9 +10,10 @@ const UpdateArticle = () => {
   const { user } = useContext(AuthContext);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const axiosSecure = useAxiosSecure();
   useEffect(() => {
-    axios(`${import.meta.env.VITE_API_URL}Articles/id/${id}`)
+    axiosSecure
+      .get(`Articles/id/${id}`)
       .then((res) => {
         setData(res.data);
         setLoading(false);
@@ -51,8 +52,8 @@ const UpdateArticle = () => {
       author_photoURL: user?.photoURL || "",
     };
 
-    axios
-      .put(`${import.meta.env.VITE_API_URL}Articles/${id}`, updatedArticle)
+    axiosSecure
+      .put(`Articles/${id}`, updatedArticle)
       .then(() => {
         toast.success("Article updated successfully!");
         navigate("/");

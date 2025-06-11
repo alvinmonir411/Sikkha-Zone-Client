@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Categores from "./Categores";
 import { NavLink } from "react-router-dom";
+import useAxiosSecure from "../Hooks/useaxiossecure";
 
 const FeatureSection = () => {
   const [data, setData] = useState([]);
+  const axiosSecure = useAxiosSecure();
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}FeatureArticles`)
-      .then((res) => res.json())
+    axiosSecure
+      .get(`FeatureArticles`)
       .then((data) => {
-        setData(data);
+        setData(data.data);
       })
       .catch((err) => {
         console.error("Failed to fetch articles:", err);

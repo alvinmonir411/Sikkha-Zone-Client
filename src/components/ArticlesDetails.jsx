@@ -3,8 +3,9 @@ import { useContext, useEffect, useState } from "react";
 import { AiFillLike } from "react-icons/ai";
 import { FaComment } from "react-icons/fa";
 import { toast } from "react-toastify";
-import axios from "axios";
+
 import { AuthContext } from "./../context/AuthContext";
+import useAxiosSecure from "../Hooks/useaxiossecure";
 
 const ArticlesDetails = () => {
   const { user } = useContext(AuthContext);
@@ -14,16 +15,13 @@ const ArticlesDetails = () => {
   const [like, setLike] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [comments, setComments] = useState([]);
-
+  const axiosSecure = useAxiosSecure();
   // ✅ Handle Like
   const handleLike = async () => {
     try {
-      await axios.post(
-        `${import.meta.env.VITE_API_URL}Articles/id/${_id}/like`,
-        {
-          userEmail: user.email,
-        }
-      );
+      await axiosSecure.post(`Articles/id/${_id}/like`, {
+        userEmail: user.email,
+      });
       setLike(true);
       setLikeCount((prev) => prev + 1);
     } catch (err) {
@@ -35,9 +33,7 @@ const ArticlesDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(
-          `${import.meta.env.VITE_API_URL}Articles/id/${_id}`
-        );
+        const res = await axiosSecure.get(`Articles/id/${_id}`);
         const data = res.data;
         setArticle(data);
         setComments(data.comment || []);
@@ -65,10 +61,7 @@ const ArticlesDetails = () => {
     };
 
     try {
-      await axios.post(
-        `${import.meta.env.VITE_API_URL}Articles/id/${_id}/comment`,
-        newComment
-      );
+      await axiosSecure.post(`Articles/id/${_id}/comment`, newComment);
       toast.success("Comment added successfully!");
       setComments((prev) => [...prev, newComment]);
       form.reset();
