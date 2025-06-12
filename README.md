@@ -4,7 +4,7 @@ Welcome to **ShikkhaZone**, a full-stack MERN-based knowledge-sharing platform w
 
 ## 🌐 Live Site
 
-👉 [Click here to visit the live site](https://your-live-site-link.com)
+👉 https://sikka-zone.netlify.app/
 
 ---
 
