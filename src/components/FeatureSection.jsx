@@ -69,6 +69,7 @@ const FeatureSection = () => {
                 <span className="text-sm text-primary-700 font-medium">
                   {item.author_name}
                 </span>
+                <span>📅 {item.date}</span>
               </div>
             </div>
           </div>

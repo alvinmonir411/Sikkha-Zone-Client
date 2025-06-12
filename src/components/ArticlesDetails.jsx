@@ -3,12 +3,12 @@ import { useContext, useEffect, useState } from "react";
 import { AiFillLike } from "react-icons/ai";
 import { FaComment } from "react-icons/fa";
 import { toast } from "react-toastify";
-
 import { AuthContext } from "./../context/AuthContext";
 import useAxiosSecure from "../Hooks/useaxiossecure";
 
 const ArticlesDetails = () => {
   const { user } = useContext(AuthContext);
+
   const { _id } = useParams();
   const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -25,7 +25,7 @@ const ArticlesDetails = () => {
       setLike(true);
       setLikeCount((prev) => prev + 1);
     } catch (err) {
-      toast.error("Already liked or error occurred");
+      toast.error("Already liked");
     }
   };
 
