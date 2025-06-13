@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link, NavLink } from "react-router"; // react-router-dom (not "react-router")
+
 import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import Swal from "sweetalert2";
 
 import useAxiosSecure from "../Hooks/useaxiossecure";
+import { Link, useParams } from "react-router";
+import { motion } from "framer-motion";
 
 const MyArticles = () => {
   const { author_email } = useParams();
   const [mydata, setMyData] = useState([]);
   const [loading, setLoading] = useState(true);
   const axiosSecure = useAxiosSecure();
+
   useEffect(() => {
     setLoading(true);
-
     axiosSecure
       .get(`MyArticle/author/${author_email}`)
       .then((data) => {
@@ -39,34 +41,30 @@ const MyArticles = () => {
         axiosSecure
           .delete(`Articles/id/${id}`)
           .then(() => {
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your article has been deleted.",
-              icon: "success",
-            });
-
+            Swal.fire("Deleted!", "Your article has been deleted.", "success");
             setMyData((prevData) =>
               prevData.filter((article) => article._id !== id)
             );
           })
           .catch((error) => {
-            console.error("There was an error deleting the article!", error);
-            Swal.fire({
-              title: "Error!",
-              text: "Failed to delete the article.",
-              icon: "error",
-            });
+            console.error("Delete error:", error);
+            Swal.fire("Error!", "Failed to delete the article.", "error");
           });
       }
     });
   };
 
   return (
-    <div className="min-h-screen bg-base-100 dark:bg-base-900 text-black dark:text-white p-6">
-      <div className="max-w-5xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6 text-center text-blue-600 dark:text-blue-400">
+    <div className="min-h-screen bg-base-100  text-primary  p-6">
+      <div className="max-w-7xl mx-auto">
+        <motion.h1
+          className="text-3xl font-bold text-center text-blue-600 dark:text-blue-400 mb-8"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           My Articles
-        </h1>
+        </motion.h1>
 
         {loading ? (
           <div className="flex justify-center py-10">
@@ -77,53 +75,68 @@ const MyArticles = () => {
             No articles found.
           </p>
         ) : (
-          <div className="space-y-6">
-            {mydata.map((article) => (
-              <div
-                key={article._id}
-                className="bg-base-100 dark:bg-base-800 shadow-md rounded-lg overflow-hidden flex flex-col md:flex-row gap-4 p-4"
-              >
-                <img
-                  src={article.image}
-                  alt={article.title}
-                  className="w-full md:w-48 h-40 object-cover rounded-md"
-                />
-                <div className="flex-1">
-                  <h2 className="text-xl font-semibold text-primary-800 dark:text-primary-200 mb-1">
-                    {article.title}
-                  </h2>
-                  <p className="text-sm text-primary-600 dark:text-primary-400 mb-2 line-clamp-3">
-                    {article.content}
-                  </p>
-                  <div className="text-sm text-primary-500 dark:text-primary-300 mb-3">
-                    <span className="mr-4">Category: {article.category}</span>
-                    <span>Date: {article.date}</span>
-                  </div>
-
-                  <div className="flex gap-4">
-                    <NavLink
-                      to={`/Articles/id/${article._id}`}
-                      className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-all duration-200"
-                    >
-                      <FaEye className="text-white" />
-                      View
-                    </NavLink>
-                    <Link
-                      to={`/update-article/${article._id}`}
-                      className="flex items-center gap-1 text-green-600 dark:text-green-400 hover:underline"
-                    >
-                      <FaEdit /> Edit
-                    </Link>
-                    <button
-                      onClick={() => handleDelete(article._id)}
-                      className="flex items-center gap-1 text-red-600 dark:text-red-400 hover:underline"
-                    >
-                      <FaTrash /> Delete
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
+          <div className="overflow-x-auto">
+            <motion.table
+              className="min-w-full table-auto border-collapse"
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
+            >
+              <thead className="sticky top-0 bg-base-200 text-base-content">
+                <tr>
+                  <th className="py-3 px-4 text-left">Image</th>
+                  <th className="py-3 px-4 text-left">Title</th>
+                  <th className="py-3 px-4 text-left">Category</th>
+                  <th className="py-3 px-4 text-left">Date</th>
+                  <th className="py-3 px-4 text-left">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {mydata.map((article) => (
+                  <motion.tr
+                    key={article._id}
+                    className="border-b bg-base-100 text-base-content hover:bg-base-200 transition-colors"
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <td className="py-3 px-4">
+                      <img
+                        src={article.image}
+                        alt={article.title}
+                        className="w-16 h-16 object-cover rounded-md"
+                      />
+                    </td>
+                    <td className="py-3 px-4">{article.title}</td>
+                    <td className="py-3 px-4">{article.category}</td>
+                    <td className="py-3 px-4">{article.date}</td>
+                    <td className="py-3 px-4 space-x-3 flex items-center">
+                      <Link
+                        to={`/Articles/id/${article._id}`}
+                        className="text-info hover:text-info-content transition"
+                        title="View"
+                      >
+                        <FaEye />
+                      </Link>
+                      <Link
+                        to={`/update-article/${article._id}`}
+                        className="text-success hover:text-success-content transition"
+                        title="Edit"
+                      >
+                        <FaEdit />
+                      </Link>
+                      <button
+                        onClick={() => handleDelete(article._id)}
+                        className="text-error hover:text-error-content transition"
+                        title="Delete"
+                      >
+                        <FaTrash />
+                      </button>
+                    </td>
+                  </motion.tr>
+                ))}
+              </tbody>
+            </motion.table>
           </div>
         )}
       </div>
