@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router";
 import useAxiosSecure from "../Hooks/useaxiossecure";
