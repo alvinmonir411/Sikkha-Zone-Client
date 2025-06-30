@@ -21,7 +21,7 @@ const Navber = () => {
   };
   return (
     <motion.div
-      className="navbar bg-base-100 shadow-sm"
+      className="navbar sticky top-0 z-100 bg-base-100 shadow-sm"
       initial={{
         opacity: 0,
         y: -20,

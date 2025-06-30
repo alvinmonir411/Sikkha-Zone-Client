@@ -35,7 +35,7 @@ const FilterArticle = () => {
       ) : data.length === 0 ? (
         <p className="text-center text-red-500 text-xl">No articles found.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {data.map((article) => (
             <div
               key={article._id}

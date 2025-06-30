@@ -22,8 +22,8 @@ const FeatureSection = () => {
         Top Trending & Recent Posts
       </h1>
       <Categores />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {data.map((item) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        {data?.map((item) => (
           <div
             key={item._id}
             className="bg-base-100 shadow-lg rounded-xl overflow-hidden flex flex-col justify-between transition-transform hover:scale-105 duration-300"
@@ -62,7 +62,7 @@ const FeatureSection = () => {
             <div className="flex items-center justify-between px-5 py-4 border-t border-gray-200 bg-base-50">
               <div className="flex items-center space-x-3">
                 <img
-                  src={item.author_photo}
+                  src={item.author_photoURL}
                   alt={item.author_name}
                   className="w-10 border border-blue-200 h-10 rounded-full object-cover"
                 />

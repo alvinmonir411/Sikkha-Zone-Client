@@ -3,54 +3,80 @@ import { useContext, useEffect, useState } from "react";
 import { AiFillLike } from "react-icons/ai";
 import { FaComment } from "react-icons/fa";
 import { toast } from "react-toastify";
-import { AuthContext } from "./../context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 import useAxiosSecure from "../Hooks/useaxiossecure";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 const ArticlesDetails = () => {
   const { user } = useContext(AuthContext);
-
   const { _id } = useParams();
-  const [article, setArticle] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const axiosSecure = useAxiosSecure();
+  const queryClient = useQueryClient();
+
   const [like, setLike] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [comments, setComments] = useState([]);
-  const axiosSecure = useAxiosSecure();
-  // ✅ Handle Like
-  const handleLike = async () => {
-    try {
-      await axiosSecure.post(`Articles/id/${_id}/like`, {
+
+  // ✅ Fetch Article
+  const {
+    data: article,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["article", _id],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`Articles/id/${_id}`);
+      return res.data;
+    },
+  });
+
+  // ✅ Set Like and Comment States
+  useEffect(() => {
+    if (article) {
+      setLike(article.likedBy?.includes(user.email));
+      setLikeCount(article.likeCount || 0);
+      setComments(article.comment || []);
+    }
+  }, [article, user.email]);
+
+  // ✅ Like Mutation
+  const likeMutation = useMutation({
+    mutationFn: async () => {
+      return axiosSecure.post(`Articles/id/${_id}/like`, {
         userEmail: user.email,
       });
+    },
+    onSuccess: () => {
+      toast.success("Liked!");
       setLike(true);
       setLikeCount((prev) => prev + 1);
-    } catch (err) {
+      queryClient.invalidateQueries({ queryKey: ["article", _id] });
+    },
+    onError: () => {
       toast.error("Already liked");
-    }
+    },
+  });
+
+  const handleLike = () => {
+    if (!like) likeMutation.mutate();
   };
 
-  // ✅ Fetch article
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axiosSecure.get(`Articles/id/${_id}`);
-        const data = res.data;
-        setArticle(data);
-        setComments(data.comment || []);
-        setLikeCount(data.likeCount || 0);
-        setLike(data.likedBy?.includes(user.email));
-      } catch (error) {
-        console.error("Error fetching article:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // ✅ Comment Mutation
+  const commentMutation = useMutation({
+    mutationFn: async (newComment) => {
+      return axiosSecure.post(`Articles/id/${_id}/comment`, newComment);
+    },
+    onSuccess: (_, newComment) => {
+      toast.success("Comment added!");
+      setComments((prev) => [...prev, newComment]);
+      queryClient.invalidateQueries({ queryKey: ["article", _id] });
+    },
+    onError: () => {
+      toast.error("Failed to add comment.");
+    },
+  });
 
-    fetchData();
-  }, [_id, user.email]);
-
-  // ✅ Handle Comment Submit
-  const handleCommentForm = async (e) => {
+  const handleCommentForm = (e) => {
     e.preventDefault();
     const form = e.target;
     const newComment = {
@@ -60,20 +86,22 @@ const ArticlesDetails = () => {
       photoURL: user.photoURL,
     };
 
-    try {
-      await axiosSecure.post(`Articles/id/${_id}/comment`, newComment);
-      toast.success("Comment added successfully!");
-      setComments((prev) => [...prev, newComment]);
-      form.reset();
-    } catch (error) {
-      toast.error("Failed to add comment.");
-    }
+    commentMutation.mutate(newComment);
+    form.reset();
   };
 
-  if (loading || !article) {
+  if (isLoading) {
     return (
       <div className="text-center py-10">
         <div className="mx-auto border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600" />
+      </div>
+    );
+  }
+
+  if (isError || !article) {
+    return (
+      <div className="text-center text-red-500 py-10">
+        Failed to load article.
       </div>
     );
   }
@@ -145,7 +173,10 @@ const ArticlesDetails = () => {
       <div className="mt-8 text-lg leading-relaxed text-primary-800">
         {content}
       </div>
-      <NavLink className="btn bg-blue-300 w-full mt-10" to="/AllArticles">
+      <NavLink
+        className="btn bg-blend-color-burn w-full mt-10"
+        to="/AllArticles"
+      >
         View More Articles
       </NavLink>
 

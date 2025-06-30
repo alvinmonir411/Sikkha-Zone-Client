@@ -1,36 +1,68 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Articlecard from "../components/Articlecard";
-import { motion } from "framer-motion";
 import axios from "axios";
-import FilterArticle from "../components/FilterArtilce";
+import { useQuery } from "@tanstack/react-query";
+import { useDebounce } from "use-debounce";
 
 const AllArticles = () => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    axios.get(`${import.meta.env.VITE_API_URL}Articles`).then((data) => {
-      setData(data.data);
-      setLoading(false);
-    });
-  }, []);
+  const [search, setSearch] = useState("");
+  const [debouncedSearch] = useDebounce(search, 500);
+
+  // 🔍 Fetch All Articles (for default view)
+  const {
+    data: allArticles = [],
+    isLoading: isAllLoading,
+    isError: isAllError,
+  } = useQuery({
+    queryKey: ["allArticles"],
+    queryFn: async () => {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}Articles`);
+      return res.data;
+    },
+    enabled: !debouncedSearch, // Only when not searching
+  });
+
+  // 🔎 Fetch Search Results (when searching)
+  const {
+    data: searchResults = [],
+    isLoading,
+    isError,
+    isSearchLoading,
+    isSearchError,
+  } = useQuery({
+    queryKey: ["serchedata", debouncedSearch],
+    queryFn: async () => {
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}Articles/search?q=${debouncedSearch}`
+      );
+      return res.data;
+    },
+    enabled: !!debouncedSearch,
+  });
+
   return (
-    <div>
-      <motion.div
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <FilterArticle />
-      </motion.div>
-      {loading ? (
-        <div className="mx-auto border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600" />
-      ) : (
-        <ul>
-          {data.map((article) => (
-            <Articlecard key={article._id} article={article} />
-          ))}
-        </ul>
+    <div className="px-4 py-8">
+      {/* 🔍 Search Bar */}
+      <input
+        type="search"
+        placeholder="Search articles by title, category, or author..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="w-full p-3 mb-8 border rounded-lg m-10"
+      />
+
+      {/* 🔁 Loading and Error States */}
+      {(isAllLoading || isSearchLoading) && <p>Loading articles...</p>}
+      {(isAllError || isSearchError) && (
+        <p className="text-red-500">Failed to load articles.</p>
       )}
+
+      {/* 🧾 Article List */}
+      <div className="grid grid-cols-1  gap-6">
+        {(debouncedSearch ? searchResults : allArticles).map((article) => (
+          <Articlecard key={article._id} article={article} />
+        ))}
+      </div>
     </div>
   );
 };

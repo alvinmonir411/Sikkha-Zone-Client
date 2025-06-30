@@ -16,7 +16,7 @@ const Articlecard = ({ article }) => {
 
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-base-100 rounded-2xl shadow-lg overflow-hidden p-6 mb-6 transition-shadow hover:shadow-2xl hover:scale-[1.02] duration-300">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-base-100 rounded-2xl shadow-lg overflow-hidden p-6 mb-6 transition-shadow hover:shadow-2xl  duration-300">
         {/* Image */}
         <div className="w-full h-64 md:h-auto overflow-hidden rounded-xl">
           <img
