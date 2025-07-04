@@ -1,67 +1,171 @@
-📰 Sikhazone Articles Platform
+# 📰 Sikhazone - Full-Featured Article Platform
 
-A full-featured MERN stack blog/article platform built with:
+Sikhazone is a modern MERN stack article/blog platform designed for both readers and content creators. Built with powerful technologies like React, Firebase, and MongoDB, it offers a seamless and engaging experience for publishing, browsing, and interacting with articles.
 
-React, Tailwind CSS, Framer Motion
+---
 
-Node.js, Express.js
+## 🚀 Features
 
-MongoDB (with native driver)
+- 🔐 **Firebase Authentication** – Secure login and registration
+- 📝 **Create, Edit, Delete Articles** – Full CRUD functionality
+- 🔍 **Advanced Search & Sorting** – Search articles by title, tags, category, author, and sort by latest, oldest, or most liked
+- 📌 **Bookmark System** – Save your favorite articles
+- ❤️ **Like System** – Like articles (one like per user)
+- 💬 **Comments** – Engage with article authors and other readers
+- 👀 **View Counter** – Track article popularity
+- 📊 **Admin Dashboard** – Manage all content
+- 🧠 **Responsive Design & Animations** – Built with Tailwind CSS + Framer Motion
+- 🔒 **Protected Routes** – Firebase Admin SDK for server-side auth verification
 
-Firebase Authentication
+---
 
-🚀 Features
+## 📸 Screenshots
 
-🔐 Firebase Authentication (Login/Register)
+> You can add screenshots here (UI previews, dashboard, article view, etc.)
 
-📝 Create, Edit, and Delete Articles
+---
 
-🔍 Full-text search with sorting (Newest, Oldest, Most Liked)
+## 📁 Folder Structure
 
-📌 Bookmarking system with persistent state
+```
+├── client/
+│   └── src/
+│       ├── components/
+│       ├── pages/
+│       ├── context/
+│       ├── hooks/
+│       └── App.jsx
+├── server/
+│   └── index.js
+```
 
-❤️ Like system (one user, one like)
+---
 
-💬 Comment on articles
+## 🛠️ Tech Stack
 
-👀 View count tracking
+### Frontend
 
-📊 Admin dashboard (view/manage all articles)
+- React
+- Tailwind CSS + DaisyUI
+- Axios
+- React Router
+- React Query
+- Framer Motion
+- Firebase Authentication
 
-🧠 Responsive UI with animations (Framer Motion)
+### Backend
 
-🔒 Private route protection using Firebase Admin SDK
+- Node.js
+- Express.js
+- MongoDB (native driver)
+- Firebase Admin SDK (JWT verification)
 
-📷 Screenshots
+---
 
-(Add your own screenshots here or later)
+## ⚙️ Setup Instructions
 
-📁 Project Structure
+### Clone the repo:
 
-🛠️ Tech Stack
+```bash
+git clone https://github.com/your-username/sikhazone.git
+cd sikhazone
+```
 
-Frontend:
+### Install Client:
 
-React
+```bash
+cd client
+npm install
+```
 
-Tailwind CSS
+Create a `.env` file in `client/`:
 
-DaisyUI
+```env
+VITE_API_URL=http://localhost:3000/
+```
 
-Axios
+### Install Server:
 
-React Router
+```bash
+cd ../server
+npm install
+```
 
-React Query
+Create a `.env` file in `server/`:
 
-Firebase Auth
+```env
+PORT=3000
+MONGODB_URI=your_mongodb_uri
+Fb_Service_key=your_base64_encoded_firebase_service_key
+```
 
-Framer Motion
+> 📌 Your Firebase service key must be base64 encoded JSON.
 
-Backend:
+---
 
-Express.js
+## ▶️ Running the App
 
-MongoDB (Native driver)
+### Start frontend:
 
-Firebase Admin SDK
+```bash
+cd client
+npm run dev
+```
+
+### Start backend:
+
+```bash
+cd server
+node index.js
+```
+
+---
+
+## 📦 API Overview
+
+- `GET /Articles` – All articles
+- `GET /Articles/search?q=...&sort=...` – Search + sort
+- `GET /Articles/id/:id` – Get single article
+- `POST /Articles` – Create article (auth)
+- `PUT /Articles/:id` – Update article (auth)
+- `DELETE /Articles/id/:id` – Delete article (auth)
+- `PATCH /articles/:id/visit` – Increment visit count
+- `POST /Articles/id/:id/like` – Like article
+- `POST /Articles/id/:id/comment` – Add comment
+- `GET /bookmarks/:email` – Get user bookmarks
+- `POST /bookmarks` – Add a bookmark
+- `DELETE /bookmarks` – Remove bookmark
+
+---
+
+## 🔐 Authentication & Authorization
+
+- Firebase Authentication (client)
+- Firebase Admin SDK (server – verify tokens)
+- Role-based route protection
+
+---
+
+## 🤝 Contribution
+
+Contributions, issues and feature requests are welcome!
+
+1. Fork the repo
+2. Create your branch: `git checkout -b feature/my-feature`
+3. Commit your changes: `git commit -m 'Add some feature'`
+4. Push to the branch: `git push origin feature/my-feature`
+5. Submit a pull request
+
+---
+
+## 📝 License
+
+This project is open-source and available under the [MIT License](LICENSE).
+
+---
+
+## 📢 Contact
+
+**Author:** Alvin Monir
+📧 Email: [alvinmonir411@gmail.com](mailto:alvinmonir411@gmail.com)
+🌐 Portfolio: \[Coming Soon]
