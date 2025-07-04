@@ -19,11 +19,7 @@ Sikhazone is a modern MERN stack article/blog platform designed for both readers
 
 ---
 
-## 📸 Screenshots
 
-> You can add screenshots here (UI previews, dashboard, article view, etc.)
-
----
 
 ## 📁 Folder Structure
 
@@ -67,7 +63,7 @@ Sikhazone is a modern MERN stack article/blog platform designed for both readers
 ### Clone the repo:
 
 ```bash
-git clone https://github.com/your-username/sikhazone.git
+git clone https://github.com/alvinmonir411/Sikkha-Zone-Client
 cd sikhazone
 ```
 
@@ -81,6 +77,7 @@ npm install
 Create a `.env` file in `client/`:
 
 ```env
+...firebase secret key
 VITE_API_URL=http://localhost:3000/
 ```
 
@@ -146,15 +143,7 @@ node index.js
 
 ---
 
-## 🤝 Contribution
 
-Contributions, issues and feature requests are welcome!
-
-1. Fork the repo
-2. Create your branch: `git checkout -b feature/my-feature`
-3. Commit your changes: `git commit -m 'Add some feature'`
-4. Push to the branch: `git push origin feature/my-feature`
-5. Submit a pull request
 
 ---
 
@@ -168,4 +157,4 @@ This project is open-source and available under the [MIT License](LICENSE).
 
 **Author:** Alvin Monir
 📧 Email: [alvinmonir411@gmail.com](mailto:alvinmonir411@gmail.com)
-🌐 Portfolio: \[Coming Soon]
+🌐 Portfolio: https://alvinmonir.netlify.app/
