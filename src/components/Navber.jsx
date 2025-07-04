@@ -108,7 +108,7 @@ const Navber = () => {
             >
               All Articles
             </NavLink>
-          </li>{" "}
+          </li>
           <li>
             <NavLink
               className={({ isActive }) =>
@@ -117,6 +117,16 @@ const Navber = () => {
               to="/about"
             >
               About
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "text-blue-500 underline" : ""
+              }
+              to="/conatct"
+            >
+              Conatct
             </NavLink>
           </li>
         </ul>
@@ -152,11 +162,9 @@ const Navber = () => {
                     <span className="badge">New</span>
                   </a>
                 </li>
-
                 <li>
-                  <button onClick={handleLogout}>Log-Out</button>
+                  <NavLink to="dashboard">DashBoard</NavLink>
                 </li>
-
                 {user && (
                   <>
                     <li>
@@ -179,8 +187,21 @@ const Navber = () => {
                         My Article
                       </NavLink>
                     </li>
+                    <li>
+                      <NavLink
+                        className={({ isActive }) =>
+                          isActive ? "text-blue-500 underline" : ""
+                        }
+                        to="myBookmarks"
+                      >
+                        My Bookmarks
+                      </NavLink>
+                    </li>
                   </>
                 )}
+                <li>
+                  <button onClick={handleLogout}>Log-Out</button>
+                </li>
               </ul>
             </div>
           </>

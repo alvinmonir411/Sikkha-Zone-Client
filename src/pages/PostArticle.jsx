@@ -3,11 +3,12 @@ import React, { useContext } from "react";
 import { toast } from "react-toastify";
 import { AuthContext } from "./../context/AuthContext";
 import useAxiosSecure from "../Hooks/useaxiossecure";
+import axios from "axios";
 
 const PostArticle = () => {
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const title = e.target.title.value;
@@ -15,18 +16,27 @@ const PostArticle = () => {
     const category = e.target.category.value;
     const author = e.target.author.value;
     const date = e.target.date.value;
-    const image = e.target.image.value;
+    const image = e.target.image.files[0];
     const tags = e.target.tags.value.split(",").map((tag) => tag.trim());
     const email = e.target.email.value;
     const name = e.target.name.value;
+    // 🔼 1. Upload to imgbb
 
+    const formdata = new FormData();
+    formdata.append("image", image);
+    const imgbbRes = await axios.post(
+      `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_URL}`,
+      formdata
+    );
+    const imageUrl = imgbbRes.data?.data?.url;
+    console.log(imageUrl);
     const articleData = {
       title,
       content,
       category,
       author,
       date,
-      image,
+      image: imageUrl,
       tags,
       author_id: user?.uid,
       author_name: user?.displayName,
@@ -149,15 +159,15 @@ const PostArticle = () => {
 
           <fieldset>
             <label className="block text-sm font-medium text-primary-700">
-              Article Image URL
+              Upload Article Image
             </label>
             <input
-              type="text"
+              type="file"
               id="image"
               name="image"
+              accept="image/*"
               required
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-              placeholder="Enter image URL"
             />
           </fieldset>
 

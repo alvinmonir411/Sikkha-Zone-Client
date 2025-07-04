@@ -29,7 +29,7 @@ const ArticlesDetails = () => {
       return res.data;
     },
   });
-
+  console.log(article);
   // ✅ Set Like and Comment States
   useEffect(() => {
     if (article) {
@@ -161,7 +161,7 @@ const ArticlesDetails = () => {
         <span className="bg-green-100 text-green-700 px-2 py-1 rounded-md">
           📚 {category}
         </span>
-        {tags.map((tag, idx) => (
+        {tags?.map((tag, idx) => (
           <span
             key={idx}
             className="bg-yellow-100 text-yellow-700 px-2 py-1 rounded-md"
@@ -210,7 +210,7 @@ const ArticlesDetails = () => {
                 className="flex gap-4 bg-base-50 rounded-lg p-4 shadow-sm border border-gray-200"
               >
                 <img
-                  src={c.photoURL || "default-profile.png"}
+                  src={c.author_photoURL || "default-profile.png"}
                   alt={`${c.author_name}'s profile`}
                   className="w-14 h-14 rounded-full object-cover border-2 border-blue-500"
                 />

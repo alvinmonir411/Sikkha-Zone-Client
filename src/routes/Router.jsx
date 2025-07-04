@@ -12,6 +12,9 @@ import MyArticles from "./../pages/MyArticles";
 import UpdateArticle from "../components/UpdateArticle";
 import Eror from "../Eroor/Eror";
 import AboutUs from "../pages/AboutUs ";
+import Admin from "../AdminDashboard/Admin";
+import Contact from "../components/Contact";
+import MyBookmarks from "../AdminDashboard/MyBookmarks";
 
 export const router = createBrowserRouter([
   {
@@ -32,7 +35,11 @@ export const router = createBrowserRouter([
         path: "/about",
         Component: AboutUs,
       },
-      ,
+
+      {
+        path: "conatct",
+        Component: Contact,
+      },
       {
         path: "/PostArticle",
         element: (
@@ -48,6 +55,10 @@ export const router = createBrowserRouter([
             <FilterArtilce />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "myBookmarks",
+        Component: MyBookmarks,
       },
       {
         path: "/Articles/id/:_id",
@@ -72,6 +83,10 @@ export const router = createBrowserRouter([
             <UpdateArticle />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/dashboard",
+        Component: Admin,
       },
     ],
   },

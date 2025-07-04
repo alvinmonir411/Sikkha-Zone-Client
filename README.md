@@ -1,83 +1,67 @@
-# 📘 ShikkhaZone – Knowledge Sharing Platform
+📰 Sikhazone Articles Platform
 
-Welcome to **ShikkhaZone**, a full-stack MERN-based knowledge-sharing platform where students and learners can share articles, gain insights, and engage in meaningful discussions.
+A full-featured MERN stack blog/article platform built with:
 
-## 🌐 Live Site
+React, Tailwind CSS, Framer Motion
 
-👉 https://sikka-zone.netlify.app/
+Node.js, Express.js
 
----
+MongoDB (with native driver)
 
-## 📖 Project Purpose
+Firebase Authentication
 
-ShikkhaZone was developed as part of an assignment project to assess full-stack development, user authentication, CRUD operations, secure routing, and overall application architecture. The platform provides a clean, responsive, and secure experience where users can:
+🚀 Features
 
-- Read and post articles
-- Comment on discussions
-- Like content
-- Filter articles by category
-- Manage personal articles securely
+🔐 Firebase Authentication (Login/Register)
 
----
+📝 Create, Edit, and Delete Articles
 
-## 🚀 Key Features
+🔍 Full-text search with sorting (Newest, Oldest, Most Liked)
 
-- 🔐 **Authentication** using Firebase (Email/Password and Google Sign-In)
-- 📑 **Post, Edit, and Delete** personal articles
-- 🗂️ Filter and view articles by **Category**
-- 💬 **Comment and Like** system (stored in MongoDB)
-- 🌙 **Dark/Light Theme Toggle**
-- 👤 **User Dashboard** to manage content
-- ❌ Custom **404 Error Page**
-- 🖼️ Fully **Responsive Design**
-- 🌈 Smooth UI Animations using **Framer Motion**
+📌 Bookmarking system with persistent state
 
----
+❤️ Like system (one user, one like)
 
-## 🛠️ Tech Stack
+💬 Comment on articles
 
-### Frontend
+👀 View count tracking
 
-- **React.js** (v19+)
-- **React Router DOM** (v7)
-- **Tailwind CSS** (v4)
-- **DaisyUI**
-- **Framer Motion** – animation
-- **Lottie React** – animation
-- **React Toastify** – notifications
-- **React CountUp** – counter animations
-- **SweetAlert2** – alerts/modals
-- **Swiper** – sliders
+📊 Admin dashboard (view/manage all articles)
 
-### Backend
+🧠 Responsive UI with animations (Framer Motion)
 
-- **Node.js**
-- **Express.js**
-- **MongoDB**
-- **Firebase Authentication**
-- **JWT (JSON Web Tokens)** – for secure private route protection
-- **CORS & Dotenv** – for secure server configuration
+🔒 Private route protection using Firebase Admin SDK
 
----
+📷 Screenshots
 
-## 📦 Used NPM Packages
+(Add your own screenshots here or later)
 
-### Frontend Dependencies
+📁 Project Structure
 
-```json
-"framer-motion": "^12.16.0",
-"lottie-react": "^2.4.1",
-"react": "^19.1.0",
-"react-countup": "^6.5.3",
-"react-dom": "^19.1.0",
-"react-icons": "^5.5.0",
-"react-router-dom": "^7.6.2",
-"swiper": "^11.2.8"
-```
+🛠️ Tech Stack
 
-Security Measures
-All Firebase and MongoDB credentials stored in .env files
+Frontend:
 
-JWT tokens stored securely in localStorage
+React
 
-Protected routes for posting/editing articles and viewing "My Articles"
+Tailwind CSS
+
+DaisyUI
+
+Axios
+
+React Router
+
+React Query
+
+Firebase Auth
+
+Framer Motion
+
+Backend:
+
+Express.js
+
+MongoDB (Native driver)
+
+Firebase Admin SDK
