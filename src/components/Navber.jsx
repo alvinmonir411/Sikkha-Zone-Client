@@ -80,6 +80,26 @@ const Navber = () => {
               >
                 About
               </NavLink>
+            </li>{" "}
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "text-blue-500 underline" : ""
+                }
+                to="/conatct"
+              >
+                Conatct
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "text-blue-500 underline" : ""
+                }
+                to="/services"
+              >
+                Services
+              </NavLink>
             </li>
           </ul>
         </div>
@@ -127,6 +147,16 @@ const Navber = () => {
               to="/conatct"
             >
               Conatct
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "text-blue-500 underline" : ""
+              }
+              to="/services"
+            >
+              Services
             </NavLink>
           </li>
         </ul>

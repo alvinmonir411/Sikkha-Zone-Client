@@ -15,6 +15,7 @@ import AboutUs from "../pages/AboutUs ";
 import Admin from "../AdminDashboard/Admin";
 import Contact from "../components/Contact";
 import MyBookmarks from "../AdminDashboard/MyBookmarks";
+import Service from "../components/Services";
 
 export const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ export const router = createBrowserRouter([
       {
         path: "conatct",
         Component: Contact,
+      },
+      {
+        path: "services",
+        Component: Service,
       },
       {
         path: "/PostArticle",
