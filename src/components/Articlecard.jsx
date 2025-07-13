@@ -17,7 +17,7 @@ const Articlecard = ({ article, onBookmark, savedArticles = [] }) => {
     author_photoURL,
     visitCount,
   } = article;
-
+  // check if the need of team
   // Safely check if this article is bookmarked by comparing string versions of IDs
   const isSaved = savedArticles.some((id) => id === _id);
 
